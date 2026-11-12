@@ -1,0 +1,81 @@
+{
+ "dataset_id": "msl_rad",
+ "records": [
+  {
+   "start_utc": "2012-311 01:48:05",
+   "n_observations": 45,
+   "dose_rate_B_uGy_h": {
+    "mean": 8.886016,
+    "min": 2.54316,
+    "max": 9.78862,
+    "n": 45
+   },
+   "dose_rate_E_uGy_h": {
+    "mean": 8.461069555555554,
+    "min": 2.12419,
+    "max": 8.82984,
+    "n": 45
+   },
+   "unit": "\u00b5Gy/h",
+   "sol": 90,
+   "file": "RAD_RDR_2012_311_01_48_0090_V00.TXT"
+  },
+  {
+   "start_utc": "2013-037 13:16:25",
+   "n_observations": 45,
+   "dose_rate_B_uGy_h": {
+    "mean": 9.406898666666667,
+    "min": 8.86658,
+    "max": 10.4829,
+    "n": 45
+   },
+   "dose_rate_E_uGy_h": {
+    "mean": 9.084546222222219,
+    "min": 8.87789,
+    "max": 9.32441,
+    "n": 45
+   },
+   "unit": "\u00b5Gy/h",
+   "sol": 180,
+   "file": "RAD_RDR_2013_037_13_16_0180_V00.TXT"
+  },
+  {
+   "start_utc": "2013-160 20:25:45",
+   "n_observations": 45,
+   "dose_rate_B_uGy_h": {
+    "mean": 8.764123333333332,
+    "min": 8.12986,
+    "max": 9.63781,
+    "n": 45
+   },
+   "dose_rate_E_uGy_h": {
+    "mean": 8.490095111111113,
+    "min": 8.22351,
+    "max": 8.78005,
+    "n": 45
+   },
+   "unit": "\u00b5Gy/h",
+   "sol": 300,
+   "file": "RAD_RDR_2013_160_20_25_0300_V00.TXT"
+  },
+  {
+   "start_utc": "2013-284 02:54:40",
+   "n_observations": 65,
+   "dose_rate_B_uGy_h": {
+    "mean": 11.115975538461539,
+    "min": 8.19994,
+    "max": 17.79952,
+    "n": 65
+   },
+   "dose_rate_E_uGy_h": {
+    "mean": 11.09562923076923,
+    "min": 8.37467,
+    "max": 16.53432,
+    "n": 65
+   },
+   "unit": "\u00b5Gy/h",
+   "sol": 420,
+   "file": "RAD_RDR_2013_284_02_54_0420_V00.TXT"
+  }
+ ]
+}

@@ -1,0 +1,93 @@
+{
+  "dataset_id": "jezero_mineral_evidence",
+  "reliability": "inference",
+  "disclaimer": "All records document ANCIENT aqueous alteration or fluvial/lacustrine processes. None constitutes evidence of present-day liquid water or extractable water ice. Evidence classes: direct_observation (in-situ rover instrument), remote_sensing_indication (orbital spectroscopy), inference (geomorphology / literature interpretation).",
+  "water_ice": {
+    "status": "no_evidence",
+    "statement": "No near-surface water-ice detection exists for Jezero crater (18.4 N). Orbital neutron spectrometers (Mars Odyssey GRS/NS) show low equatorial hydrogen (< ~5 wt% WEH) consistent with hydrated minerals rather than ice, and no SHARAD subsurface reflector attributed to ice has been reported here. Ice stability models place the equatorward limit of shallow ground ice near 40-50 degrees latitude.",
+    "sources": ["Feldman, W.C. et al. (2004) JGR 109, E09006", "Piqueux, S. et al. (2019) GRL 46 (ice stability)", "Mellon, M.T. et al. (2004) Icarus 169"]
+  },
+  "evidence": [
+    {
+      "id": "crism_delta_smectite", "name": "Fe/Mg smectite clays in the western delta", "category": "hydrated_mineral",
+      "evidence_class": "remote_sensing_indication", "geometry_type": "polygon",
+      "lon": 77.39, "lat": 18.47, "radius_m": 3500,
+      "minerals": ["Fe/Mg smectite"], "instrument": "MRO CRISM (FRT00005C5E, HRL000040FF)", "resolution_m": 18,
+      "interpretation": "Clays within delta bottomset/foreset strata indicate detrital or in-situ alteration in a long-lived aqueous environment.",
+      "uncertainty": "Spectral detection of hydrated phyllosilicate is robust; exact stratigraphic position inferred from HiRISE.",
+      "sources": ["Ehlmann, B.L. et al. (2008) Nature Geosci. 1, 355", "Goudge et al. (2015) JGR Planets 120"]
+    },
+    {
+      "id": "crism_margin_carbonate", "name": "Mg-carbonate 'Marginal unit'", "category": "carbonate",
+      "evidence_class": "remote_sensing_indication", "geometry_type": "polygon",
+      "lon": 77.33, "lat": 18.49, "radius_m": 3000,
+      "minerals": ["Mg-carbonate", "olivine"], "instrument": "MRO CRISM", "resolution_m": 18,
+      "interpretation": "Strongest carbonate absorptions in Jezero follow the inner western margin; possible lake-shoreline or altered volcanic unit.",
+      "uncertainty": "Carbonate abundance not quantified from orbit; formation setting debated.",
+      "sources": ["Horgan, B.H.N. et al. (2020) Icarus 339, 113526", "Ehlmann et al. (2008) Science 322, 1828"]
+    },
+    {
+      "id": "crism_floor_olivine_carbonate", "name": "Olivine-carbonate crater floor", "category": "carbonate",
+      "evidence_class": "remote_sensing_indication", "geometry_type": "polygon",
+      "lon": 77.50, "lat": 18.40, "radius_m": 8000,
+      "minerals": ["olivine", "Mg-carbonate"], "instrument": "MRO CRISM", "resolution_m": 18,
+      "interpretation": "Regional olivine-rich unit partially altered to carbonate (NE Syrtis / Jezero floor).",
+      "uncertainty": "Patchy exposure under dust and eolian cover.",
+      "sources": ["Goudge et al. (2015)", "Brown, A.J. et al. (2020) JGR Planets 125"]
+    },
+    {
+      "id": "seitah_carbonate_sulfate", "name": "Séítah carbonate, sulfate and perchlorate in igneous cumulate", "category": "aqueous_alteration",
+      "evidence_class": "direct_observation", "geometry_type": "point",
+      "lon": 77.44069, "lat": 18.43255, "radius_m": 300,
+      "minerals": ["carbonate", "Mg/Ca sulfate", "perchlorate", "olivine"], "instrument": "PIXL, SHERLOC (Mars 2020)", "resolution_m": 0.0001,
+      "interpretation": "Water percolated through olivine cumulate rocks depositing salts; at least two episodes of aqueous alteration.",
+      "uncertainty": "Timing of alteration relative to lake uncertain.",
+      "sources": ["Scheller, E.L. et al. (2022) Science 378, 1105", "Liu et al. (2022) Science 377"]
+    },
+    {
+      "id": "wildcat_organics_sulfate", "name": "Wildcat Ridge sulfates + aromatic organics", "category": "hydrated_mineral",
+      "evidence_class": "direct_observation", "geometry_type": "point",
+      "lon": 77.4061, "lat": 18.45886, "radius_m": 200,
+      "minerals": ["Mg/Ca sulfate", "clay", "organics"], "instrument": "SHERLOC, PIXL (Mars 2020)", "resolution_m": 0.0001,
+      "interpretation": "Fine-grained delta-front mudstone with sulfate cement and aromatic organic molecules.",
+      "uncertainty": "Organics are not evidence of life; abiotic origins possible.",
+      "sources": ["Sharma, S. et al. (2023) Nature 619, 724"]
+    },
+    {
+      "id": "cheyava_falls", "name": "Cheyava Falls 'leopard spots' (Bright Angel)", "category": "aqueous_alteration",
+      "evidence_class": "direct_observation", "geometry_type": "point",
+      "lon": 77.30391, "lat": 18.49521, "radius_m": 200,
+      "minerals": ["Fe-phosphate (vivianite?)", "Fe-sulfide (greigite?)", "organics"], "instrument": "PIXL, SHERLOC (Mars 2020)", "resolution_m": 0.0001,
+      "interpretation": "Redox reaction fronts in mudstone that on Earth are often microbially mediated; potential biosignature pending sample return.",
+      "uncertainty": "Abiotic pathways cannot be excluded in situ.",
+      "sources": ["Hurowitz et al. (2025) Nature", "NASA/JPL (2024)"]
+    },
+    {
+      "id": "delta_geomorphology", "name": "Western delta and lake-level indicators", "category": "paleo_water",
+      "evidence_class": "inference", "geometry_type": "polygon",
+      "lon": 77.38, "lat": 18.47, "radius_m": 5000,
+      "minerals": [], "instrument": "HiRISE/CTX stereo, Mastcam-Z", "resolution_m": 1,
+      "interpretation": "Gilbert-type delta with topsets at ~ -2490 m implies a lake at least 100 m deep that persisted long enough to build the fan; later floods carried boulders.",
+      "uncertainty": "Lake duration estimates range from decades-scale episodes to >10^4 years.",
+      "sources": ["Mangold et al. (2021) Science 374", "Goudge et al. (2018) Icarus 301"]
+    },
+    {
+      "id": "inlet_channels", "name": "Neretva and Sava Vallis inlet valleys", "category": "paleo_water",
+      "evidence_class": "inference", "geometry_type": "point",
+      "lon": 77.26, "lat": 18.50, "radius_m": 2000,
+      "minerals": [], "instrument": "CTX, MOLA", "resolution_m": 6,
+      "interpretation": "Valley networks delivering water and sediment from a ~ 30,000 km^2 watershed.",
+      "uncertainty": "Discharge estimates vary by an order of magnitude.",
+      "sources": ["Fassett & Head (2005) GRL", "Goudge et al. (2015)"]
+    },
+    {
+      "id": "themis_night_thermal_inertia", "name": "THEMIS night-IR thermal inertia contrast (floor vs delta)", "category": "thermal",
+      "evidence_class": "remote_sensing_indication", "geometry_type": "polygon",
+      "lon": 77.50, "lat": 18.42, "radius_m": 12000,
+      "minerals": [], "instrument": "Mars Odyssey THEMIS night IR", "resolution_m": 100,
+      "interpretation": "Bright (warm) night-time floor = bedrock/high thermal inertia; dark delta surfaces = finer sediments. Useful for trafficability, not a water indicator.",
+      "uncertainty": "Qualitative in this build; no quantitative TI values ingested.",
+      "sources": ["Fergason, R.L. et al. (2006) JGR 111", "THEMIS controlled mosaic v2 (ASU 2018)"]
+    }
+  ]
+}

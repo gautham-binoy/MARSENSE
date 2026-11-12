@@ -1,0 +1,119 @@
+{
+  "dataset_id": "jezero_science_targets",
+  "reliability": "inference",
+  "note": "Curated catalogue. Coordinates marked 'rover_waypoint' are taken from the official Mars 2020 traverse (measured); others are read from published maps (+/-300 m). Scientific descriptions are literature interpretations and may be revised.",
+  "targets": [
+    {
+      "id": "octavia_butler_landing", "name": "Octavia E. Butler Landing", "type": "landing_site", "priority": 3,
+      "lon": 77.45089, "lat": 18.44463, "elevation_m": -2569.9, "location_basis": "rover_waypoint sol 13",
+      "summary": "Perseverance touchdown site (18 Feb 2021) on the crater-floor Máaz formation, ~2 km SE of the western delta front. Flat, low rock abundance; demonstrated safe landing terrain.",
+      "science_value": "Reference ground truth for crater-floor lavas (Máaz fm.) and for calibrating orbital terrain products.",
+      "mission": "Mars 2020", "instruments": ["Mastcam-Z", "SuperCam", "MEDA"],
+      "sources": ["Farley, K.A. et al. (2022) Science 377, eabo2196", "NASA/JPL Mars 2020 landing press kit"]
+    },
+    {
+      "id": "seitah", "name": "Séítah", "type": "igneous_unit", "priority": 3,
+      "lon": 77.44069, "lat": 18.43255, "elevation_m": -2571.8, "location_basis": "rover_waypoint sol 200",
+      "summary": "Olivine-rich cumulate unit (Séítah formation) forming a rugged, ripple-covered low; sampled by Perseverance (Salette, Coulettes, Robine, Malay cores).",
+      "science_value": "Igneous crater-floor rocks altered by water (carbonate, sulfate, perchlorate detected). Key for radiometric dating of the crater floor.",
+      "mission": "Mars 2020", "instruments": ["PIXL", "SHERLOC", "SuperCam"],
+      "sources": ["Liu, Y. et al. (2022) Science 377, 1513", "Farley et al. (2022) Science 377"]
+    },
+    {
+      "id": "three_forks_depot", "name": "Three Forks sample depot", "type": "sample_cache", "priority": 2,
+      "lon": 77.40824, "lat": 18.45281, "elevation_m": -2545.1, "location_basis": "rover_waypoint sol 670",
+      "summary": "Flat area at the base of the delta where Perseverance deposited 10 sealed sample tubes (Dec 2022 - Jan 2023) as a backup cache for Mars Sample Return.",
+      "science_value": "Logistics landmark; terrain proven benign for rover operations and tube deposition.",
+      "mission": "Mars 2020", "instruments": ["Sampling & Caching System"],
+      "sources": ["NASA/JPL (2023) Perseverance sample depot press release"]
+    },
+    {
+      "id": "hogwallow_flats", "name": "Hogwallow Flats / Wildcat Ridge", "type": "sedimentary_deposit", "priority": 3,
+      "lon": 77.4061, "lat": 18.45886, "elevation_m": -2521.6, "location_basis": "rover_waypoint sol 474",
+      "summary": "Fine-grained sandstones and mudstones at the delta front (Shenandoah formation) with the highest organic signal detected by SHERLOC so far; sulfate-rich.",
+      "science_value": "Top astrobiology target: fine-grained lacustrine/deltaic sediments with aromatic organics and sulfates.",
+      "mission": "Mars 2020", "instruments": ["SHERLOC", "PIXL", "WATSON"],
+      "sources": ["Sharma, S. et al. (2023) Nature 619, 724", "Stack et al. (2024) JGR Planets"]
+    },
+    {
+      "id": "kodiak", "name": "Kodiak butte", "type": "delta_remnant", "priority": 2,
+      "lon": 77.3994, "lat": 18.4232, "elevation_m": -2520, "location_basis": "published map (Mangold et al. 2021)",
+      "summary": "Isolated delta remnant south of the main fan showing textbook Gilbert-type topset/foreset/bottomset stratigraphy, imaged from Van Zyl Overlook.",
+      "science_value": "Proved that Jezero hosted a lake with a stable water level (~ -2490 m) and later high-energy floods.",
+      "mission": "Mars 2020 / MRO", "instruments": ["Mastcam-Z", "SuperCam RMI", "HiRISE"],
+      "sources": ["Mangold, N. et al. (2021) Science 374, 711"]
+    },
+    {
+      "id": "delta_top_berea", "name": "Delta top (Berea / Ouzel Falls)", "type": "sedimentary_deposit", "priority": 3,
+      "lon": 77.37989, "lat": 18.47368, "elevation_m": -2441.5, "location_basis": "rover_waypoint sol 759",
+      "summary": "Coarse conglomerates and sandstones of the upper delta (Tenby formation) recording river floods that transported boulders from the Neretva watershed.",
+      "science_value": "Samples of the catchment lithologies and fluvial energy history; carbonate-cemented sandstones.",
+      "mission": "Mars 2020", "instruments": ["Mastcam-Z", "PIXL", "SuperCam"],
+      "sources": ["Stack et al. (2024) JGR Planets", "NASA/JPL Perseverance mission updates 2023"]
+    },
+    {
+      "id": "margin_unit", "name": "Marginal carbonate unit", "type": "carbonate_unit", "priority": 3,
+      "lon": 77.32881, "lat": 18.49131, "elevation_m": -2382.3, "location_basis": "rover_waypoint sol 1049",
+      "summary": "Mg-carbonate and olivine bearing unit along the inner western crater margin ('Margin Unit'), interpreted as a possible lake-shoreline deposit or altered volcanic unit.",
+      "science_value": "Carbonates can preserve biosignatures and record ancient atmospheric CO2; strongest orbital carbonate signature in Jezero.",
+      "mission": "MRO / Mars 2020", "instruments": ["CRISM", "PIXL", "SHERLOC"],
+      "sources": ["Horgan, B.H.N. et al. (2020) Icarus 339, 113526", "Goudge et al. (2015) JGR Planets 120"]
+    },
+    {
+      "id": "bright_angel", "name": "Bright Angel (Cheyava Falls)", "type": "sedimentary_deposit", "priority": 3,
+      "lon": 77.30391, "lat": 18.49521, "elevation_m": -2359.8, "location_basis": "rover_waypoint sol 1175",
+      "summary": "Light-toned outcrop in Neretva Vallis where the 'Cheyava Falls' rock showed leopard-spot reduction halos, organics and phosphate - a potential biosignature candidate.",
+      "science_value": "Highest-priority astrobiology sample (Sapphire Canyon) of the mission to date.",
+      "mission": "Mars 2020", "instruments": ["SHERLOC", "PIXL", "WATSON"],
+      "sources": ["Hurowitz, J.A. et al. (2025) Nature (Cheyava Falls)", "NASA/JPL (2024) 'Perseverance finds rock with potential biosignature'"]
+    },
+    {
+      "id": "neretva_vallis", "name": "Neretva Vallis (inlet channel)", "type": "ancient_river_channel", "priority": 2,
+      "lon": 77.26, "lat": 18.50, "elevation_m": -2300, "location_basis": "published map (Goudge et al. 2015)",
+      "summary": "Western inlet valley that fed the Jezero paleolake and built the western delta; ~ 1 km wide breach of the crater rim.",
+      "science_value": "Fluvial transport pathway; exposes rim/watershed lithologies and channel-fill sediments.",
+      "mission": "MRO", "instruments": ["CTX", "HiRISE", "CRISM"],
+      "sources": ["Goudge, T.A. et al. (2015) JGR Planets 120, 775", "Fassett & Head (2005) GRL 32"]
+    },
+    {
+      "id": "sava_vallis", "name": "Sava Vallis (northern inlet)", "type": "ancient_river_channel", "priority": 1,
+      "lon": 77.52, "lat": 18.62, "elevation_m": -2350, "location_basis": "published map (Goudge et al. 2015)",
+      "summary": "Second inlet valley entering Jezero from the north with a smaller fan deposit.",
+      "science_value": "Comparative fluvial system; smaller northern delta remnant.",
+      "mission": "MRO", "instruments": ["CTX", "HiRISE"],
+      "sources": ["Goudge et al. (2015) JGR Planets 120"]
+    },
+    {
+      "id": "pliva_vallis", "name": "Pliva Vallis (outlet channel)", "type": "ancient_river_channel", "priority": 1,
+      "lon": 77.80, "lat": 18.30, "elevation_m": -2400, "location_basis": "published map (Fassett & Head 2005)",
+      "summary": "Eastern outlet channel that breached the rim, proving the paleolake overflowed (open-basin lake).",
+      "science_value": "Constrains the maximum lake level and overflow history.",
+      "mission": "MRO", "instruments": ["CTX", "MOLA"],
+      "sources": ["Fassett, C.I. & Head, J.W. (2005) GRL 32, L14201"]
+    },
+    {
+      "id": "lookout_hill_rim", "name": "Lookout Hill / Witch Hazel Hill (crater rim)", "type": "geological_boundary", "priority": 2,
+      "lon": 77.26475, "lat": 18.46055, "elevation_m": -1820.0, "location_basis": "rover_waypoint sol 1400",
+      "summary": "Crater rim crest reached in Dec 2024 after a ~500 m climb; Witch Hazel Hill exposes layered Noachian rim rocks and impact breccias.",
+      "science_value": "Oldest materials accessible: pre-Jezero crust and impact melt; also the steepest terrain the rover has driven.",
+      "mission": "Mars 2020", "instruments": ["Mastcam-Z", "SuperCam", "PIXL"],
+      "sources": ["NASA/JPL (2024-2025) Northern Rim campaign updates"]
+    },
+    {
+      "id": "belva_crater", "name": "Belva crater", "type": "impact_crater", "priority": 1,
+      "lon": 77.37, "lat": 18.46, "elevation_m": -2450, "location_basis": "published map",
+      "summary": "~0.9 km impact crater punched into the delta, exposing a natural cross-section of delta strata in its walls.",
+      "science_value": "Vertical exposure of the delta's internal architecture.",
+      "mission": "Mars 2020 / MRO", "instruments": ["Mastcam-Z", "HiRISE"],
+      "sources": ["NASA/JPL (2023) Belva crater mosaic release"]
+    },
+    {
+      "id": "jezero_floor_fractured", "name": "Crater floor fractured rough unit", "type": "igneous_unit", "priority": 1,
+      "lon": 77.55, "lat": 18.40, "elevation_m": -2620, "location_basis": "published map (Stack et al. 2020)",
+      "summary": "Olivine/pyroxene-bearing fractured unit covering the central crater floor; dark, fractured surface with eolian bedforms.",
+      "science_value": "Possible volcanic flow or airfall deposit postdating the lake; datable surface.",
+      "mission": "MRO", "instruments": ["CRISM", "HiRISE", "THEMIS"],
+      "sources": ["Stack, K.M. et al. (2020) Space Sci. Rev. 216, 127", "Goudge et al. (2015)"]
+    }
+  ]
+}

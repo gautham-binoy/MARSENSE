@@ -1,0 +1,407 @@
+{
+ "dataset_id": "m20_meda",
+ "records": [
+  {
+   "sol": 10,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0010/",
+   "air_temperature": {
+    "file": "WE__0010___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 13425,
+    "min": 237.29,
+    "max": 260.24,
+    "mean": 247.58904655493484,
+    "ltst_start": "0010 13:57:21",
+    "ltst_end": "0010 14:22:29",
+    "earth_date": "2021-03-01"
+   }
+  },
+  {
+   "sol": 94,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0090_0179/sol_0094/",
+   "pressure": {
+    "file": "WE__0094___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 142245,
+    "min": 752.39,
+    "max": 779.13,
+    "mean": 763.1690637983761,
+    "ltst_start": "0093 23:54:57",
+    "ltst_end": "0094 23:00:25",
+    "earth_date": "2021-05-25"
+   },
+   "air_temperature": {
+    "file": "WE__0094___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 476795,
+    "min": 191.65,
+    "max": 268.74,
+    "mean": 219.99815826508248,
+    "ltst_start": "0093 23:54:57",
+    "ltst_end": "0094 23:00:38",
+    "earth_date": "2021-05-25"
+   }
+  },
+  {
+   "sol": 180,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0180_0299/sol_0180/",
+   "pressure": {
+    "file": "WE__0180___________CAL_PS__________________P03.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 143010,
+    "min": 709.93,
+    "max": 739.14,
+    "mean": 721.0204399692329,
+    "ltst_start": "0180 00:14:27",
+    "ltst_end": "0180 23:19:48",
+    "earth_date": "2021-08-22"
+   },
+   "air_temperature": {
+    "file": "WE__0180___________CAL_ATS_________________P02.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 240290,
+    "min": 193.18,
+    "max": 270.03,
+    "mean": 221.150052103708,
+    "ltst_start": "0180 00:14:27",
+    "ltst_end": "0180 23:20:18",
+    "earth_date": "2021-08-22"
+   }
+  },
+  {
+   "sol": 300,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0300_0419/sol_0300/",
+   "pressure": {
+    "file": "WE__0300___________CAL_PS__________________P02.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 162900,
+    "min": 607.05,
+    "max": 650.01,
+    "mean": 627.5941368937999,
+    "ltst_start": "0300 00:31:49",
+    "ltst_end": "0300 23:37:08",
+    "earth_date": "2021-12-23"
+   },
+   "air_temperature": {
+    "file": "WE__0300___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 273270,
+    "min": 195.54,
+    "max": 279.91,
+    "mean": 228.77362634024956,
+    "ltst_start": "0300 00:31:49",
+    "ltst_end": "0300 23:37:38",
+    "earth_date": "2021-12-23"
+   }
+  },
+  {
+   "sol": 420,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0420_0539/sol_0420/",
+   "pressure": {
+    "file": "WE__0420___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 227142,
+    "min": 705.92,
+    "max": 758.05,
+    "mean": 733.3490385309631,
+    "ltst_start": "0420 00:34:21",
+    "ltst_end": "0421 00:34:03",
+    "earth_date": "2022-04-25"
+   },
+   "air_temperature": {
+    "file": "WE__0420___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 379245,
+    "min": 195.46,
+    "max": 280.51,
+    "mean": 223.12893198328257,
+    "ltst_start": "0420 00:34:21",
+    "ltst_end": "0421 00:34:03",
+    "earth_date": "2022-04-25"
+   }
+  },
+  {
+   "sol": 540,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0540_0659/sol_0540/",
+   "pressure": {
+    "file": "WE__0540___________CAL_PS__________________P02.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 144444,
+    "min": 749.31,
+    "max": 797.35,
+    "mean": 772.7468931212095,
+    "ltst_start": "0539 23:24:38",
+    "ltst_end": "0540 22:29:19",
+    "earth_date": "2022-08-27"
+   },
+   "air_temperature": {
+    "file": "WE__0540___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 242525,
+    "min": 183.12,
+    "max": 267.68,
+    "mean": 213.3716265539635,
+    "ltst_start": "0539 23:24:38",
+    "ltst_end": "0540 22:29:45",
+    "earth_date": "2022-08-27"
+   }
+  },
+  {
+   "sol": 660,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0660_0779/sol_0660/",
+   "pressure": {
+    "file": "WE__0660___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 218394,
+    "min": 700.79,
+    "max": 763.76,
+    "mean": 727.1543102832495,
+    "ltst_start": "0659 23:19:15",
+    "ltst_end": "0660 23:14:43",
+    "earth_date": "2022-12-28"
+   },
+   "air_temperature": {
+    "file": "WE__0660___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 366015,
+    "min": 187.34,
+    "max": 270.93,
+    "mean": 222.59019537450652,
+    "ltst_start": "0659 23:19:15",
+    "ltst_end": "0660 23:15:14",
+    "earth_date": "2022-12-28"
+   }
+  },
+  {
+   "sol": 900,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0900_1019/sol_0900/",
+   "pressure": {
+    "file": "WE__0900___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 146214,
+    "min": 635.07,
+    "max": 671.66,
+    "mean": 652.5557483551506,
+    "ltst_start": "0900 00:21:29",
+    "ltst_end": "0900 23:26:54",
+    "earth_date": "2023-08-31"
+   },
+   "air_temperature": {
+    "file": "WE__0900___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 245715,
+    "min": 199.12,
+    "max": 274.93,
+    "mean": 225.1241128543231,
+    "ltst_start": "0900 00:21:29",
+    "ltst_end": "0900 23:27:25",
+    "earth_date": "2023-08-31"
+   }
+  },
+  {
+   "sol": 1020,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_1020_1139/sol_1020/",
+   "pressure": {
+    "file": "WE__1020___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 144738,
+    "min": 618.55,
+    "max": 660.48,
+    "mean": 637.8324292169298,
+    "ltst_start": "1020 00:38:52",
+    "ltst_end": "1020 23:44:14",
+    "earth_date": "2024-01-02"
+   },
+   "air_temperature": {
+    "file": "WE__1020___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 240775,
+    "min": 200.58,
+    "max": 285.31,
+    "mean": 228.11064117952444,
+    "ltst_start": "1020 00:38:52",
+    "ltst_end": "1020 23:44:44",
+    "earth_date": "2024-01-02"
+   }
+  },
+  {
+   "sol": 1140,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_1140_1259/sol_1140/",
+   "pressure": {
+    "file": "WE__1140___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 225795,
+    "min": 756.95,
+    "max": 999999999.0,
+    "mean": 14071.493636927304,
+    "ltst_start": "1140 00:09:51",
+    "ltst_end": "1140 23:14:32",
+    "earth_date": "2024-05-04"
+   },
+   "air_temperature": {
+    "file": "WE__1140___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 376990,
+    "min": 192.63,
+    "max": 269.14,
+    "mean": 217.8942400063662,
+    "ltst_start": "1140 00:09:51",
+    "ltst_end": "1140 23:15:02",
+    "earth_date": "2024-05-04"
+   }
+  },
+  {
+   "sol": 1260,
+   "source_dir": "https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_1260_1379/sol_1260/",
+   "pressure": {
+    "file": "WE__1260___________CAL_PS__________________P01.CSV",
+    "unit": "Pa",
+    "sensors": [
+     "BAROCAP1_PRESSURE",
+     "BAROCAP2_PRESSURE",
+     "BAROCAP3_PRESSURE"
+    ],
+    "n_samples": 67536,
+    "min": 687.65,
+    "max": 740.94,
+    "mean": 717.0290217069415,
+    "ltst_start": "1259 23:09:33",
+    "ltst_end": "1260 22:24:45",
+    "earth_date": "2024-09-04"
+   },
+   "air_temperature": {
+    "file": "WE__1260___________CAL_ATS_________________P01.CSV",
+    "unit": "K",
+    "sensors": [
+     "ATS_LOCAL_TEMP1",
+     "ATS_LOCAL_TEMP2",
+     "ATS_LOCAL_TEMP3",
+     "ATS_LOCAL_TEMP4",
+     "ATS_LOCAL_TEMP5"
+    ],
+    "n_samples": 116640,
+    "min": 193.01,
+    "max": 266.28,
+    "mean": 217.14760665294924,
+    "ltst_start": "1259 23:09:30",
+    "ltst_end": "1260 22:25:15",
+    "earth_date": "2024-09-04"
+   }
+  }
+ ]
+}
