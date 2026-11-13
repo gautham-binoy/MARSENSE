@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  ArrowDown,
+  ArrowUp,
   CheckCircle2,
   Clock,
   Compass,
+  Download,
   Gauge,
   Mountain,
   Navigation,
   Play,
   Plus,
+  RotateCcw,
   Route as RouteIcon,
   ShieldAlert,
   Sparkles,
@@ -26,6 +30,7 @@ import { Slider } from '@/components/ui/slider'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Callout, PageHeader, ProvenanceList, Spinner, Stat } from '@/components/common'
 import { fmt } from '@/lib/utils'
+import { exportRouteAsGeoJson, exportRouteAsGpx } from '@/lib/routeExport'
 
 export default function RoutesPage() {
   const globe = useRef<GlobeHandle>(null)
@@ -104,6 +109,27 @@ export default function RoutesPage() {
     if (!t) return
     const [lon, lat] = t.geometry.coordinates as number[]
     m.addRoutePoint({ lon, lat, label: t.properties.name })
+  }
+
+  const moveWaypoint = (index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1
+    if (targetIndex < 0 || targetIndex >= m.routePoints.length) return
+    const pts = [...m.routePoints]
+    const temp = pts[index]
+    pts[index] = pts[targetIndex]
+    pts[targetIndex] = temp
+    m.setRoutePoints(pts)
+  }
+
+  const handleAddReturnToBase = () => {
+    const basePt = m.base ?? (m.routePoints.length > 0 ? m.routePoints[0] : null)
+    if (!basePt) return
+    m.addRoutePoint({ lon: basePt.lon, lat: basePt.lat, label: 'Return to Base' })
+  }
+
+  const handleReverseRoute = () => {
+    if (m.routePoints.length < 2) return
+    m.setRoutePoints([...m.routePoints].reverse())
   }
 
   const chartData = (m.route?.profile ?? [])
@@ -325,6 +351,25 @@ export default function RoutesPage() {
                     <p>{m.route.explanation}</p>
                     <ProvenanceList items={m.route.provenance} className="mt-2 pt-2 border-t border-line/60" />
                   </div>
+
+                  <div className="flex items-center gap-2 pt-1">
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => exportRouteAsGeoJson(m.route!, m.routePoints, m.name)}
+                      className="flex-1 text-[11px]"
+                    >
+                      <Download className="h-3.5 w-3.5 text-sci" /> Export GeoJSON
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => exportRouteAsGpx(m.route!, m.routePoints, m.name)}
+                      className="flex-1 text-[11px]"
+                    >
+                      <Download className="h-3.5 w-3.5 text-ember" /> Export GPX
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <div className="panel-2 p-6 text-center text-fg-dim text-[12px] space-y-2">
@@ -421,6 +466,27 @@ export default function RoutesPage() {
 
             {/* TAB 4: Waypoints manager */}
             <TabsContent value="waypoints" className="space-y-2.5 pt-2">
+              <div className="flex items-center gap-1.5 pb-1">
+                <Button
+                  size="xs"
+                  variant="secondary"
+                  onClick={handleAddReturnToBase}
+                  className="flex-1 text-[10.5px]"
+                  title="Appends the mission base to close the exploration loop"
+                >
+                  <Plus className="h-3 w-3 text-safe" /> Return to Base (Loop)
+                </Button>
+                <Button
+                  size="xs"
+                  variant="secondary"
+                  onClick={handleReverseRoute}
+                  className="text-[10.5px]"
+                  title="Reverse waypoint sequence"
+                >
+                  <RotateCcw className="h-3 w-3" /> Invert Route
+                </Button>
+              </div>
+
               <div className="space-y-1.5 max-h-60 overflow-y-auto">
                 {m.routePoints.map((p, idx) => (
                   <div key={idx} className="panel-2 p-2 flex items-center justify-between text-[11px]">
@@ -431,19 +497,39 @@ export default function RoutesPage() {
                         <div className="mono text-[9.5px] text-fg-dim">{fmt.coord(p.lon, p.lat)}</div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 shrink-0">
+                    <div className="flex items-center gap-0.5 shrink-0">
+                      <Button
+                        size="icon-sm"
+                        variant="ghost"
+                        onClick={() => moveWaypoint(idx, 'up')}
+                        disabled={idx === 0}
+                        title="Move waypoint up"
+                      >
+                        <ArrowUp className="h-3 w-3 text-fg-dim" />
+                      </Button>
+                      <Button
+                        size="icon-sm"
+                        variant="ghost"
+                        onClick={() => moveWaypoint(idx, 'down')}
+                        disabled={idx === m.routePoints.length - 1}
+                        title="Move waypoint down"
+                      >
+                        <ArrowDown className="h-3 w-3 text-fg-dim" />
+                      </Button>
                       <Button
                         size="icon-sm"
                         variant="ghost"
                         onClick={() => globe.current?.flyTo(p.lon, p.lat, 8000)}
+                        title="Focus on map"
                       >
-                        <Compass className="h-3 w-3" />
+                        <Compass className="h-3 w-3 text-sci" />
                       </Button>
                       <Button
                         size="icon-sm"
                         variant="ghost"
                         onClick={() => m.removeRoutePoint(idx)}
                         disabled={m.routePoints.length <= 2}
+                        title="Remove waypoint"
                       >
                         <Trash2 className="h-3 w-3 text-fg-dim hover:text-danger" />
                       </Button>

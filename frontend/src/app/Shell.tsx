@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Activity, BookOpen, Compass, Droplets, FlaskConical, Globe2, HeartPulse, Map, Mountain, Radio, Route as RouteIcon, ShieldCheck, Target } from 'lucide-react'
+import { Activity, BookOpen, Clock, Compass, Droplets, FlaskConical, Globe2, HeartPulse, Map, Mountain, Radio, Route as RouteIcon, ShieldCheck, Target } from 'lucide-react'
 import { api } from '@/lib/api'
 import { useQuery } from '@/lib/useQuery'
 import { useMission } from '@/store/mission'
 import { useMap } from '@/store/map'
+import { calculateMarsTime } from '@/lib/marsTime'
 import { cn, fmt } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Hint } from '@/components/ui/tooltip'
@@ -32,6 +34,12 @@ export function Shell() {
   const cursor = useMap((s) => s.cursor)
   const loc = useLocation()
   const online = !!health && !error
+  const [marsTime, setMarsTime] = useState(() => calculateMarsTime())
+
+  useEffect(() => {
+    const timer = setInterval(() => setMarsTime(calculateMarsTime()), 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   return (
     <div className="h-full flex flex-col">
@@ -48,6 +56,13 @@ export function Shell() {
           <span className="hidden lg:inline-flex items-center gap-1.5 text-[11px] text-fg-muted border-l border-line pl-3">
             <Compass className="h-3 w-3 text-sci" /> Region: <span className="text-fg">Jezero Crater</span>
           </span>
+          <div className="hidden xl:flex items-center gap-2 text-[10.5px] mono border-l border-line pl-3 text-fg-dim">
+            <span className="flex items-center gap-1 text-sci-2 font-medium">
+              <Clock className="h-3 w-3 text-sci animate-pulse" /> Sol {marsTime.m20Sol}
+            </span>
+            <span>· LTST {marsTime.ltstStr}</span>
+            <span className="text-fg-muted">(Ls {marsTime.lsDeg}°)</span>
+          </div>
         </div>
         <div className="flex items-center gap-3 text-[11px]">
           {cursor && <span className="hidden md:inline mono text-fg-muted">{fmt.coord(cursor.lon, cursor.lat)}</span>}

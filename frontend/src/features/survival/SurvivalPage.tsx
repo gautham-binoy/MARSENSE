@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   AlertOctagon,
+  Download,
   Droplets,
   HeartPulse,
   Play,
+  Plus,
   ShieldCheck,
   Sliders,
   Sparkles,
@@ -40,6 +42,68 @@ export default function SurvivalPage() {
   const [error, setError] = useState<string | null>(null)
   const [allResults, setAllResults] = useState<Record<string, SimResult> | null>(null)
   const [activeTab, setActiveTab] = useState<'timeline' | 'supplies' | 'assumptions' | 'scenarios'>('timeline')
+
+  // Custom scenario authoring state
+  const [customName, setCustomName] = useState('Dust Storm & Mobility Delay')
+  const [customDelayDays, setCustomDelayDays] = useState(3)
+  const [customMultiplier, setCustomMultiplier] = useState(1.4)
+  const [customPowerLoss, setCustomPowerLoss] = useState(0.35)
+  const [customScrubberEff, setCustomScrubberEff] = useState(0.8)
+
+  const handleExportCsv = () => {
+    if (!sim) return
+    const headers = ['Sol', 'Oxygen_Remaining_kg', 'Water_Remaining_kg', 'Battery_Remaining_kWh', 'Scrubber_Capacity_kg', 'Food_Remaining_kg']
+    const rows = sim.timeline.map((pt) => [
+      pt.day,
+      pt.oxygen.toFixed(2),
+      pt.water.toFixed(2),
+      pt.power.toFixed(2),
+      pt.co2_scrubber.toFixed(2),
+      pt.food.toFixed(2),
+    ])
+    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `MARSENSE_Survival_Telemetry_${sim.scenario.id}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  const runCustomScenario = async () => {
+    setSimulating(true)
+    setError(null)
+    try {
+      const res = await api.simulate({
+        supplies: m.supplies,
+        assumptions: m.assumptions,
+        custom_scenario: {
+          id: 'custom_contingency',
+          name: customName || 'Custom Contingency',
+          description: `User configured: +${customDelayDays}d delay, ${customMultiplier}x consumption, ${(customPowerLoss * 100).toFixed(0)}% power loss.`,
+          delay_days: customDelayDays,
+          consumption_multiplier: customMultiplier,
+          scrubber_efficiency: customScrubberEff,
+          power_loss_fraction: customPowerLoss,
+          water_loss_fraction: 0,
+          extra_return_days: 0,
+          eva_hours_override: null,
+        },
+      })
+      const customRes = res.results['custom_contingency']
+      if (customRes) {
+        m.setScenario('custom_contingency')
+        m.setSimulation(customRes)
+      }
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Custom scenario simulation failed')
+    } finally {
+      setSimulating(false)
+    }
+  }
 
   // Auto-run simulation on initial load or scenario change if no simulation exists
   const runSimulation = async (scenarioIdToRun = m.scenarioId, runAll = false) => {
@@ -184,13 +248,24 @@ export default function SurvivalPage() {
           {/* Timeline Depletion Chart */}
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center justify-between text-[13px]">
+              <CardTitle className="flex items-center justify-between text-[13px] flex-wrap gap-2">
                 <span className="flex items-center gap-1.5">
                   <HeartPulse className="h-4 w-4 text-ember" /> Resource Depletion Timeline (% Remaining)
                 </span>
-                <span className="mono text-[10.5px] text-fg-dim">
-                  Emergency Reserve: {(m.supplies.emergency_reserve_fraction * 100).toFixed(0)}%
-                </span>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="xs"
+                    variant="secondary"
+                    onClick={handleExportCsv}
+                    disabled={!sim}
+                    className="text-[10.5px]"
+                  >
+                    <Download className="h-3 w-3 text-sci" /> Export CSV
+                  </Button>
+                  <span className="mono text-[10.5px] text-fg-dim">
+                    Reserve: {(m.supplies.emergency_reserve_fraction * 100).toFixed(0)}%
+                  </span>
+                </div>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -525,6 +600,92 @@ export default function SurvivalPage() {
                   Click "Simulate All Scenarios" to run batch simulation.
                 </div>
               )}
+
+              {/* Custom Scenario Authoring Card */}
+              <div className="panel-2 p-3 rounded-lg border border-line space-y-2.5 pt-2 mt-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-fg flex items-center gap-1.5 text-[11.5px]">
+                    <Plus className="h-3.5 w-3.5 text-sci" /> Author Custom Contingency
+                  </span>
+                  <Badge variant="ghost">Parametric</Badge>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] text-fg-dim">Scenario Name</label>
+                  <Input
+                    value={customName}
+                    onChange={(e) => setCustomName(e.target.value)}
+                    className="text-[11px] h-7"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[10.5px]">
+                    <span className="text-fg-muted">Unexpected Delay:</span>
+                    <span className="mono text-fg">+{customDelayDays} sols</span>
+                  </div>
+                  <Slider
+                    value={[customDelayDays]}
+                    min={0}
+                    max={14}
+                    step={1}
+                    onValueChange={([v]) => setCustomDelayDays(v)}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[10.5px]">
+                    <span className="text-fg-muted">Consumption Multiplier:</span>
+                    <span className="mono text-fg">{customMultiplier.toFixed(1)}x</span>
+                  </div>
+                  <Slider
+                    value={[customMultiplier]}
+                    min={1.0}
+                    max={2.5}
+                    step={0.1}
+                    onValueChange={([v]) => setCustomMultiplier(v)}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[10.5px]">
+                    <span className="text-fg-muted">Scrubber Efficiency:</span>
+                    <span className="mono text-fg">{(customScrubberEff * 100).toFixed(0)}%</span>
+                  </div>
+                  <Slider
+                    value={[customScrubberEff * 100]}
+                    min={40}
+                    max={100}
+                    step={5}
+                    onValueChange={([v]) => setCustomScrubberEff(v / 100)}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[10.5px]">
+                    <span className="text-fg-muted">Solar Power Loss:</span>
+                    <span className="mono text-ember">{(customPowerLoss * 100).toFixed(0)}%</span>
+                  </div>
+                  <Slider
+                    value={[customPowerLoss * 100]}
+                    min={0}
+                    max={75}
+                    step={5}
+                    onValueChange={([v]) => setCustomPowerLoss(v / 100)}
+                  />
+                </div>
+
+                <Button
+                  size="sm"
+                  variant="sci"
+                  className="w-full text-[11px]"
+                  onClick={runCustomScenario}
+                  disabled={simulating}
+                >
+                  {simulating ? <Spinner /> : <Play className="h-3 w-3" />}
+                  Inject Custom Scenario
+                </Button>
+              </div>
             </TabsContent>
           </Tabs>
 

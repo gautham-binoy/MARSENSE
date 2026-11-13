@@ -1,20 +1,29 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Database, LocateFixed, RotateCcw, Satellite, ShieldAlert, Sparkles } from 'lucide-react'
+import { ArrowRight, Clock, Database, FolderOpen, LocateFixed, RotateCcw, Satellite, ShieldAlert, Sparkles } from 'lucide-react'
 import { MarsGlobe, type GlobeHandle } from '@/features/explorer/MarsGlobe'
 import { api } from '@/lib/api'
 import { useQuery } from '@/lib/useQuery'
 import { useMission } from '@/store/mission'
 import { useMap } from '@/store/map'
+import { calculateMarsTime } from '@/lib/marsTime'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ReliabilityBadge, ScoreRing, Stat } from '@/components/common'
 import { NAV } from '@/app/Shell'
 import { fmt } from '@/lib/utils'
+import { MissionVaultModal } from '@/features/mission-vault/MissionVaultModal'
 
 export default function MissionControlPage() {
   const globe = useRef<GlobeHandle>(null)
+  const [vaultOpen, setVaultOpen] = useState(false)
+  const [marsTime, setMarsTime] = useState(() => calculateMarsTime())
+
+  useEffect(() => {
+    const timer = setInterval(() => setMarsTime(calculateMarsTime()), 1000)
+    return () => clearInterval(timer)
+  }, [])
   const { data: datasets } = useQuery('datasets', api.datasets)
   const { data: rovers } = useQuery('rovers', api.rovers)
   const { data: regions } = useQuery('regions', api.regions)
@@ -62,14 +71,60 @@ export default function MissionControlPage() {
 
       <aside className="border-l border-line bg-panel/70 overflow-auto p-3 space-y-3">
         <Card>
-          <CardHeader><CardTitle>Mission status</CardTitle><Badge variant={m.assessment ? (m.assessment.verdict === 'feasible' ? 'safe' : m.assessment.verdict === 'feasible_with_changes' ? 'caution' : 'danger') : 'default'}>{m.assessment ? m.assessment.verdict.replace(/_/g, ' ') : 'not assessed'}</Badge></CardHeader>
-          <CardContent className="flex gap-3 items-center">
-            <ScoreRing score={m.assessment?.overall_score ?? 0} size={64} label="feasib." tone={m.assessment ? undefined : '#333b4a'} />
-            <div className="grid grid-cols-2 gap-1.5 flex-1">
-              <Stat label="Crew" value={m.supplies.crew} />
-              <Stat label="Duration" value={m.supplies.duration_days} unit="d" />
-              <Stat label="Targets" value={m.targets.length} />
-              <Stat label="Route" value={m.route ? fmt.km(m.route.length_m) : '—'} tone={m.route ? (m.route.verified ? 'safe' : 'caution') : 'default'} />
+          <CardHeader>
+            <div className="flex items-center justify-between w-full">
+              <CardTitle>Mission status</CardTitle>
+              <div className="flex items-center gap-1.5">
+                <Button
+                  size="xs"
+                  variant="secondary"
+                  onClick={() => setVaultOpen(true)}
+                  className="text-ember border-ember/30 hover:bg-ember/10 text-[10.5px]"
+                  title="Open saved missions vault"
+                >
+                  <FolderOpen className="h-3 w-3" /> Vault
+                </Button>
+                <Badge variant={m.assessment ? (m.assessment.verdict === 'feasible' ? 'safe' : m.assessment.verdict === 'feasible_with_changes' ? 'caution' : 'danger') : 'default'}>
+                  {m.assessment ? m.assessment.verdict.replace(/_/g, ' ') : 'not assessed'}
+                </Badge>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="flex gap-3 items-center">
+              <ScoreRing score={m.assessment?.overall_score ?? 0} size={64} label="feasib." tone={m.assessment ? undefined : '#333b4a'} />
+              <div className="grid grid-cols-2 gap-1.5 flex-1">
+                <Stat label="Crew" value={m.supplies.crew} />
+                <Stat label="Duration" value={m.supplies.duration_days} unit="d" />
+                <Stat label="Targets" value={m.targets.length} />
+                <Stat label="Route" value={m.route ? fmt.km(m.route.length_m) : '—'} tone={m.route ? (m.route.verified ? 'safe' : 'caution') : 'default'} />
+              </div>
+            </div>
+            <div className="text-[11px] text-fg-dim flex items-center justify-between pt-1 border-t border-line/60">
+              <span className="truncate max-w-[190px]">Active: <strong className="text-fg">{m.name}</strong></span>
+              <Link to="/assessment" className="text-sci hover:underline text-[10.5px]">full assessment →</Link>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Real-time Mars Chronometry Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-1.5 text-[12.5px]">
+              <Clock className="h-3.5 w-3.5 text-sci" /> Mars Chronometry & Sun Position
+            </CardTitle>
+            <span className="mono text-[10px] text-sci-2">Sol {marsTime.m20Sol}</span>
+          </CardHeader>
+          <CardContent className="space-y-2 text-[11px]">
+            <div className="grid grid-cols-2 gap-1.5">
+              <Stat label="Jezero LMST" value={marsTime.lmstStr} tone="sci" />
+              <Stat label="Jezero LTST" value={marsTime.ltstStr} tone="safe" />
+              <Stat label="Mars Sol Date" value={marsTime.msd} />
+              <Stat label="Solar Longitude" value={`${marsTime.lsDeg}°`} />
+            </div>
+            <div className="panel-2 p-2 rounded text-[10.5px] text-fg-muted flex items-center justify-between border border-line/60">
+              <span className="truncate">Season: <strong className="text-fg">{marsTime.season}</strong></span>
+              {marsTime.isDustSeason && <Badge variant="caution">Dust Storm Season</Badge>}
             </div>
           </CardContent>
         </Card>
@@ -121,6 +176,8 @@ export default function MissionControlPage() {
           </CardContent>
         </Card>
       </aside>
+
+      <MissionVaultModal open={vaultOpen} onOpenChange={setVaultOpen} />
     </div>
   )
 }

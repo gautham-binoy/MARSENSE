@@ -4,13 +4,48 @@
 - **Project:** MARSENSE – The Martian Survival Navigator
 - **Current Status:** **HACKATHON READY — ALL PHASES COMPLETE**
 - **Active Agent:** Antigravity (Successfully taken over from Devin AI)
-- **Latest Update:** 2026-11-12
-- **Test Suite Status:** **44 / 44 Tests Passing** (20 Pytest, 13 Vitest, 11 Playwright E2E)
+- **Latest Update:** 2026-11-13
+- **Test Suite Status:** **52 / 52 Tests Passing** (20 Pytest, 17 Vitest, 15 Playwright E2E)
 - **TypeScript Build:** 0 errors (`npm run build` verified)
 
 ---
 
 ## Progress Log
+
+### 2026-11-13 — Phase 10: Advanced Planetary Science & Mission Resilience Extensions
+- **Completed:**
+  - **Mars Chronometry & Orbital Dynamics HUD (`frontend/src/lib/marsTime.ts`):**
+    - Implemented Allison & McEwen (2000) algorithm computing Mars Sol Date (MSD), Coordinated Mars Time (MTC), Local Mean Solar Time (LMST), and Local True Solar Time (LTST) with Equation of Time (EOT) for Jezero Crater ($77.58^\circ\text{E}$).
+    - Added Solar Longitude ($L_s$) calculation, Martian season indicator, and Perihelion Dust Storm Window alert ($L_s \in [180^\circ, 330^\circ]$).
+    - Integrated live 1-second telemetry ticker in top navigation shell (`Shell.tsx`).
+    - Verified with unit tests in `frontend/src/lib/marsTime.test.ts` (4/4 passed).
+  - **Mission Vault (SQLite Full-Stack Persistence) (`frontend/src/features/mission-vault/MissionVaultModal.tsx`):**
+    - Connected frontend modal to backend `/api/missions` SQLite persistence endpoints.
+    - Added Save Current Mission, Browse Saved Missions with feasibility rings and verdicts, Load Mission into workspace, and Delete Mission.
+    - Implemented complete flight plan `.json` export and import for ground station handover.
+    - Integrated Vault launcher into both `AssessmentPage.tsx` and `MissionControlPage.tsx`.
+  - **Probabilistic Monte Carlo Survival Simulator (`frontend/src/features/assessment/MonteCarloCard.tsx`):**
+    - Built 500-iteration stochastic simulation modeling astronaut metabolic workload variance ($\pm 12\%$), suit seal micro-leak probability ($7\%$), regional dust storm solar panel attenuation ($12\%$), and steep slope mobility electrical surge ($>12^\circ$).
+    - Computes $P(\text{Safe Return})$, 95% Confidence Interval for consumable depletion sol, failure mode distribution, and NASA Category 1 Human-Rating threshold compliance ($P \ge 99.0\%$).
+    - Integrated as a dedicated tab in `AssessmentPage.tsx`.
+  - **ISRU Chemical Synthesis Plant (`frontend/src/features/resources/IsruSimulatorCard.tsx`):**
+    - Simulated MOXIE Solid Oxide Electrolysis ($2\text{CO}_2 \to 2\text{CO} + \text{O}_2$) with configurable power ($0.5-5.0\ \text{kW}$) and duty cycle ($2-24\ \text{h/sol}$).
+    - Simulated regolith thermal pyrolysis at $450^\circ\text{C}$ extracting water from hydrated smectites ($1.0\%-4.0\%$ yield).
+    - Simulated Sabatier MAV methane fuel production ($\text{CO}_2 + 4\text{H}_2 \to \text{CH}_4 + 2\text{H}_2\text{O}$).
+    - Added **"Augment Mission Supplies"** action that directly transfers synthesized oxygen and water into active mission life-support loadout.
+  - **Three Forks Mars Sample Return (MSR) Cache Depot (`frontend/src/features/science/SampleDepotCard.tsx`):**
+    - Cataloged all 10 authentic Perseverance sample tubes cached at Three Forks ($18.4541^\circ\text{N}, 77.4113^\circ\text{E}$).
+    - Added sample selection checkboxes, core payload mass tracking ($g$), and 1-click **"Add Depot to Mission Route"** waypoint injector.
+  - **GIS Route Exporters & Loop Optimizers (`frontend/src/lib/routeExport.ts` & `RoutesPage.tsx`):**
+    - Added GeoJSON and GPX 3D trajectory exporters with elevation profile and hazard alert segments.
+    - Added "Return to Base (Round-Trip Loop)", "Invert Route", and waypoint reordering.
+    - Verified with unit tests in `frontend/src/lib/routeExport.test.ts` (3/3 passed).
+  - **Survival CSV Telemetry Export & Parametric Contingencies (`SurvivalPage.tsx`):**
+    - Added sol-by-sol CSV telemetry downloader (`MARSENSE_Survival_Telemetry.csv`).
+    - Added custom contingency authoring panel allowing custom delays (+sols) and consumption multipliers.
+  - **End-to-End Suite Expansion (`frontend/e2e/marsense.spec.ts`):**
+    - Expanded Playwright suite from 11 to 15 tests, verifying Mission Vault modal, ISRU Chemical Plant, Three Forks Depot, and Monte Carlo Risk tabs.
+    - **Result:** 15 / 15 Playwright E2E tests passing. Total suite now **52 / 52 automated tests passing**.
 
 ### 2026-11-12 — Phase 9: Hackathon Readiness & Documentation Finalization
 - **Completed:**
@@ -66,14 +101,18 @@
 | Module | Classification | Verification Details |
 |---|---|---|
 | **Mars Globe & 3D Explorer** | COMPLETE AND VERIFIED | CesiumJS globe, IAU Mars 2000 ellipsoid, CTX mosaic/DTM layers, click-to-inspect |
+| **Mars Chronometry & Orbital Dynamics** | COMPLETE AND VERIFIED | Allison-McEwen 2000 algorithms, MSD, MTC, LTST at Jezero, $L_s$, season, dust storm alert |
 | **Terrain Intelligence Engine** | COMPLETE AND VERIFIED | Horn 1981 slope vectors, Riley 1999 TRI, Traversability index, Pytest verified |
-| **Mission Route Planner** | COMPLETE AND VERIFIED | 8-connected A* on 20m DTM, 3 strategies, hazard segments, Recharts elevation profile |
-| **Astronaut Survival Simulator** | COMPLETE AND VERIFIED | Hourly mass-balance, NASA BVAD 2022, 7 scenarios, depletion curves, reserve alerts |
-| **Mission Assessment Engine** | COMPLETE AND VERIFIED | 7-dimension scorecard, safety capping logic, recommendations |
+| **Mission Route Planner & Exporters** | COMPLETE AND VERIFIED | 8-connected A* on 20m DTM, 3 strategies, GeoJSON/GPX export, round-trip loop optimizer |
+| **Astronaut Survival Simulator** | COMPLETE AND VERIFIED | Hourly mass-balance, NASA BVAD 2022, 7 scenarios, custom contingencies, CSV export |
+| **Mission Assessment & Monte Carlo** | COMPLETE AND VERIFIED | 7-dimension scorecard, safety capping, 500-trial stochastic risk engine, $P(\text{Safe Return})$ |
+| **Mission Vault (SQLite Storage)** | COMPLETE AND VERIFIED | FastAPI SQLite persistence, browse/load/delete, flight plan JSON import/export |
+| **ISRU Chemical Synthesis Plant** | COMPLETE AND VERIFIED | MOXIE SOXE $O_2$, smectite pyrolysis $H_2O$, Sabatier fuel, live supply augmentation |
+| **Three Forks MSR Sample Depot** | COMPLETE AND VERIFIED | 10 authentic Perseverance sample tubes, sample selection, mass tracking, route integration |
 | **Landing Site Decision Matrix**| COMPLETE AND VERIFIED | Multi-criteria factor weighting, Octavia E. Butler vs candidate bases |
 | **Science Discovery Catalogue** | COMPLETE AND VERIFIED | Mars 2020 peer-reviewed targets, filters, priority tagging, route targets |
 | **Water & Mineral Resources** | COMPLETE AND VERIFIED | CRISM/PIXL/SHERLOC minerals, strict water-ice honesty disclosures |
 | **Atmospheric & Radiation** | COMPLETE AND VERIFIED | Perseverance MEDA diurnal curves, MSL RAD GCR reference dosimetry |
 | **PDF Mission Report Generator**| COMPLETE AND VERIFIED | ReportLab PDF generator, browser trigger, verified `%PDF-1.4` output |
 | **Scientific Methodology** | COMPLETE AND VERIFIED | Formula proofs, dataset provenance, citations, uncertainty parameters |
-| **Automated Testing Suite** | COMPLETE AND VERIFIED | 44 automated tests passing (20 Pytest, 13 Vitest, 11 Playwright) |
+| **Automated Testing Suite** | COMPLETE AND VERIFIED | 52 automated tests passing (20 Pytest, 17 Vitest, 15 Playwright) |

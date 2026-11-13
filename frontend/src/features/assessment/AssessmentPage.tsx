@@ -5,8 +5,10 @@ import {
   AlertTriangle,
   Award,
   CheckCircle2,
+  Dice5,
   Download,
   FileText,
+  FolderOpen,
   Lightbulb,
   Mountain,
   Navigation,
@@ -21,7 +23,10 @@ import { planFromState, useMission } from '@/store/mission'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Bar, Callout, PageHeader, ScoreRing, Spinner } from '@/components/common'
+import { MissionVaultModal } from '@/features/mission-vault/MissionVaultModal'
+import { MonteCarloCard } from '@/features/assessment/MonteCarloCard'
 
 const CATEGORY_ICONS: Record<string, typeof ShieldCheck> = {
   terrain: Mountain,
@@ -38,6 +43,8 @@ export default function AssessmentPage() {
   const [assessing, setAssessing] = useState(false)
   const [generatingPdf, setGeneratingPdf] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [vaultOpen, setVaultOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<'scorecard' | 'montecarlo'>('scorecard')
   const [error, setError] = useState<string | null>(null)
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null)
 
@@ -156,6 +163,16 @@ export default function AssessmentPage() {
             <Button
               variant="secondary"
               size="sm"
+              onClick={() => setVaultOpen(true)}
+              className="text-ember border-ember/30 hover:bg-ember/10"
+              title="Open SQLite saved flight plans vault"
+            >
+              <FolderOpen className="h-3.5 w-3.5" />
+              Mission Vault
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={handleSaveMission}
               disabled={saving}
             >
@@ -179,6 +196,20 @@ export default function AssessmentPage() {
       <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4">
         {error && <Callout kind="danger">{error}</Callout>}
         {saveSuccess && <Callout kind="info">{saveSuccess}</Callout>}
+
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
+          <TabsList className="grid grid-cols-2 max-w-md mb-2">
+            <TabsTrigger value="scorecard" className="text-[12px] flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-safe" />
+              Feasibility Scorecard & Rules
+            </TabsTrigger>
+            <TabsTrigger value="montecarlo" className="text-[12px] flex items-center gap-1.5">
+              <Dice5 className="h-3.5 w-3.5 text-sci" />
+              Monte Carlo Risk (500 Runs)
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="scorecard" className="space-y-4">
 
         {/* Top Summary Banner: Overall Score, Confidence, Verdict, Constraints */}
         {a ? (
@@ -358,6 +389,14 @@ export default function AssessmentPage() {
             {a.disclaimer}
           </div>
         )}
+          </TabsContent>
+
+          <TabsContent value="montecarlo" className="space-y-4">
+            <MonteCarloCard />
+          </TabsContent>
+        </Tabs>
+
+        <MissionVaultModal open={vaultOpen} onOpenChange={setVaultOpen} />
       </div>
     </div>
   )

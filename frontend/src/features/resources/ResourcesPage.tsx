@@ -13,7 +13,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PageHeader, ReliabilityBadge, Spinner } from '@/components/common'
+import { IsruSimulatorCard } from '@/features/resources/IsruSimulatorCard'
 
 const EVIDENCE_CLASS_COLORS: Record<string, string> = {
   direct_observation: '#34d399',
@@ -26,6 +28,7 @@ export default function ResourcesPage() {
   const globe = useRef<GlobeHandle>(null)
   const { data: evidenceData, loading } = useQuery('evidence', api.evidence)
 
+  const [resourceTab, setResourceTab] = useState<'evidence' | 'isru'>('evidence')
   const [search, setSearch] = useState('')
   const [selectedClass, setSelectedClass] = useState<string>('all')
   const [activeEvidenceId, setActiveEvidenceId] = useState<string | null>(null)
@@ -104,15 +107,28 @@ export default function ResourcesPage() {
 
         {/* Right side: Evidence Directory, ISRU Dehydration Realities, Inspection */}
         <aside className="border-l border-line bg-panel/80 overflow-y-auto p-4 space-y-3.5">
-          {/* Scientific Disclaimer Card */}
-          <div className="panel-2 p-3 rounded-lg border border-line text-[11px] space-y-1.5">
-            <div className="flex items-center gap-1.5 font-semibold text-sci-2">
-              <FlaskConical className="h-3.5 w-3.5" /> ISRU Pyrolysis Note (NASA BVAD & Literature)
-            </div>
-            <p className="text-fg-muted leading-relaxed">
-              Extracting water from hydrated smectite clays or Mg-carbonates requires high-temperature baking (&gt;450°C), consuming substantial power ({'&gt;'}3 kWh per kg H2O). Mission plans should not count on spontaneous in-situ water production at Jezero.
-            </p>
-          </div>
+          <Tabs value={resourceTab} onValueChange={(v) => setResourceTab(v as typeof resourceTab)}>
+            <TabsList className="grid grid-cols-2 w-full mb-2">
+              <TabsTrigger value="evidence" className="text-[11.5px] flex items-center gap-1.5">
+                <Droplets className="h-3.5 w-3.5 text-blue-400" />
+                Aqueous Minerals
+              </TabsTrigger>
+              <TabsTrigger value="isru" className="text-[11.5px] flex items-center gap-1.5">
+                <FlaskConical className="h-3.5 w-3.5 text-sci" />
+                ISRU Synthesizer
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="evidence" className="space-y-3.5">
+              {/* Scientific Disclaimer Card */}
+              <div className="panel-2 p-3 rounded-lg border border-line text-[11px] space-y-1.5">
+                <div className="flex items-center gap-1.5 font-semibold text-sci-2">
+                  <FlaskConical className="h-3.5 w-3.5" /> ISRU Pyrolysis Note (NASA BVAD & Literature)
+                </div>
+                <p className="text-fg-muted leading-relaxed">
+                  Extracting water from hydrated smectite clays or Mg-carbonates requires high-temperature baking (&gt;450°C), consuming substantial power ({'&gt;'}3 kWh per kg H2O). Mission plans should not count on spontaneous in-situ water production at Jezero.
+                </p>
+              </div>
 
           {/* Search & Filter pills */}
           <div className="space-y-2">
@@ -245,17 +261,23 @@ export default function ResourcesPage() {
               })}
             </div>
           </div>
+        </TabsContent>
 
-          {/* Workflow step navigator */}
-          <div className="pt-3 border-t border-line flex items-center justify-between">
-            <Button size="sm" variant="ghost" asChild>
-              <Link to="/science">← Back to Science Discovery</Link>
-            </Button>
-            <Button size="sm" variant="sci" asChild>
-              <Link to="/environment">Proceed to Environment & Radiation →</Link>
-            </Button>
-          </div>
-        </aside>
+        <TabsContent value="isru" className="space-y-3.5">
+          <IsruSimulatorCard />
+        </TabsContent>
+      </Tabs>
+
+      {/* Workflow step navigator */}
+      <div className="pt-3 border-t border-line flex items-center justify-between">
+        <Button size="sm" variant="ghost" asChild>
+          <Link to="/science">← Back to Science Discovery</Link>
+        </Button>
+        <Button size="sm" variant="sci" asChild>
+          <Link to="/environment">Proceed to Environment & Radiation →</Link>
+        </Button>
+      </div>
+    </aside>
       </div>
     </div>
   )

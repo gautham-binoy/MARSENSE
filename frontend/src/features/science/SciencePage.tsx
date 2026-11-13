@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  Archive,
   Check,
   Plus,
   Route as RouteIcon,
@@ -17,7 +18,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PageHeader, Spinner } from '@/components/common'
+import { SampleDepotCard } from '@/features/science/SampleDepotCard'
 
 const TYPE_COLORS: Record<string, string> = {
   landing_site: '#fb923c',
@@ -36,6 +39,7 @@ export default function SciencePage() {
   const m = useMission()
   const { data: targetsData, loading } = useQuery('targets', api.targets)
 
+  const [scienceTab, setScienceTab] = useState<'targets' | 'msr'>('targets')
   const [search, setSearch] = useState('')
   const [selectedType, setSelectedType] = useState<string>('all')
   const [activeTargetId, setActiveTargetId] = useState<string | null>(null)
@@ -160,16 +164,29 @@ export default function SciencePage() {
 
         {/* Right side: Search, Target cards directory, Inspection details */}
         <aside className="border-l border-line bg-panel/80 overflow-y-auto p-4 space-y-3.5">
-          {/* Search box */}
-          <div className="relative">
-            <Search className="h-3.5 w-3.5 absolute left-2.5 top-2.5 text-fg-dim" />
-            <Input
-              placeholder="Search targets by name, unit, or keywords..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-8 text-[11.5px]"
-            />
-          </div>
+          <Tabs value={scienceTab} onValueChange={(v) => setScienceTab(v as typeof scienceTab)}>
+            <TabsList className="grid grid-cols-2 w-full mb-2">
+              <TabsTrigger value="targets" className="text-[11.5px] flex items-center gap-1.5">
+                <Target className="h-3.5 w-3.5 text-sci" />
+                Planetary Targets
+              </TabsTrigger>
+              <TabsTrigger value="msr" className="text-[11.5px] flex items-center gap-1.5">
+                <Archive className="h-3.5 w-3.5 text-purple-400" />
+                MSR Sample Depot (10)
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="targets" className="space-y-3.5">
+              {/* Search box */}
+              <div className="relative">
+                <Search className="h-3.5 w-3.5 absolute left-2.5 top-2.5 text-fg-dim" />
+                <Input
+                  placeholder="Search targets by name, unit, or keywords..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-8 text-[11.5px]"
+                />
+              </div>
 
           {/* Active Target Details Card */}
           {activeDetail && (
@@ -294,17 +311,23 @@ export default function SciencePage() {
               })}
             </div>
           </div>
+        </TabsContent>
 
-          {/* Workflow step navigator */}
-          <div className="pt-3 border-t border-line flex items-center justify-between">
-            <Button size="sm" variant="ghost" asChild>
-              <Link to="/landing">← Back to Landing Sites</Link>
-            </Button>
-            <Button size="sm" variant="sci" asChild>
-              <Link to="/resources">Proceed to Water & Resources →</Link>
-            </Button>
-          </div>
-        </aside>
+        <TabsContent value="msr" className="space-y-3.5">
+          <SampleDepotCard />
+        </TabsContent>
+      </Tabs>
+
+      {/* Workflow step navigator */}
+      <div className="pt-3 border-t border-line flex items-center justify-between">
+        <Button size="sm" variant="ghost" asChild>
+          <Link to="/landing">← Back to Landing Sites</Link>
+        </Button>
+        <Button size="sm" variant="sci" asChild>
+          <Link to="/resources">Proceed to Water & Resources →</Link>
+        </Button>
+      </div>
+    </aside>
       </div>
     </div>
   )

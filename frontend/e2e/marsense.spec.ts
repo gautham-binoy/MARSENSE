@@ -71,4 +71,40 @@ test.describe('MARSENSE — Martian Survival Navigator Workflow', () => {
     await expect(page.locator('text=Scientific Methodology, Mathematics & Data Provenance')).toBeVisible()
     await expect(page.locator('text=Mars 2020 TRN CTX DTM Mosaic')).toBeVisible()
   })
+
+  test('Mission Vault opens and shows SQLite saved missions', async ({ page }) => {
+    await page.goto('/')
+    const vaultBtn = page.getByRole('button', { name: /Vault/i }).first()
+    await expect(vaultBtn).toBeVisible()
+    await vaultBtn.click()
+    await expect(page.locator('text=Mission Flight Plan Vault')).toBeVisible()
+    await expect(page.locator('text=Saved Missions')).toBeVisible()
+  })
+
+  test('Resources page switches to ISRU Chemical Plant simulator', async ({ page }) => {
+    await page.goto('/resources')
+    const isruTab = page.getByRole('tab', { name: /ISRU/i }).first()
+    await expect(isruTab).toBeVisible()
+    await isruTab.click()
+    await expect(page.locator('text=ISRU Chemical Plant & Fuel Synthesizer')).toBeVisible()
+    await expect(page.locator('text=MOXIE Atmospheric O2 Plant')).toBeVisible()
+  })
+
+  test('Science page switches to MSR Sample Return Depot', async ({ page }) => {
+    await page.goto('/science')
+    const msrTab = page.getByRole('tab', { name: /MSR/i }).first()
+    await expect(msrTab).toBeVisible()
+    await msrTab.click()
+    await expect(page.locator('text=Three Forks Sample Return Depot')).toBeVisible()
+    await expect(page.locator('text=Tube #258')).toBeVisible()
+  })
+
+  test('Assessment page displays Monte Carlo Risk Analysis tab', async ({ page }) => {
+    await page.goto('/assessment')
+    const mcTab = page.getByRole('tab', { name: /Monte Carlo/i }).first()
+    await expect(mcTab).toBeVisible()
+    await mcTab.click()
+    await expect(page.locator('text=Probabilistic Monte Carlo Survival Analysis')).toBeVisible()
+    await expect(page.locator('text=Survival Probability:')).toBeVisible()
+  })
 })
