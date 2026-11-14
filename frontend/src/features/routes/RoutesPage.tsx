@@ -185,9 +185,9 @@ export default function RoutesPage() {
         </PageHeader>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_440px]">
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_460px]">
         {/* Left: 3D Mars globe with planned route overlays */}
-        <div className="relative min-h-[300px] lg:min-h-0 scanline">
+        <div className="relative min-h-[300px] lg:min-h-0 bg-space">
           <MarsGlobe
             ref={globe}
             showRoute={true}
@@ -198,7 +198,7 @@ export default function RoutesPage() {
           />
 
           {/* Quick globe fly controls */}
-          <div className="absolute top-3 left-3 panel-2 px-3 py-2 flex items-center gap-2 text-[11px] shadow-lg">
+          <div className="absolute top-4 left-4 glass-dock px-3 py-2 flex items-center gap-2 text-[11.5px] shadow-2xl z-10 border border-white/10">
             <Button size="xs" variant="secondary" onClick={() => globe.current?.flyToJezero()}>
               Jezero View
             </Button>
@@ -220,21 +220,21 @@ export default function RoutesPage() {
 
           {/* Route bottom summary pill */}
           {m.route && (
-            <div className="absolute bottom-3 left-3 right-3 lg:right-auto panel-2 px-3 py-2 flex flex-wrap items-center gap-4 text-[11.5px] shadow-xl">
-              <div className="flex items-center gap-1.5 font-semibold text-sci-2">
+            <div className="absolute bottom-4 left-4 right-4 lg:right-auto glass-dock px-4 py-2.5 flex flex-wrap items-center gap-4 text-[12px] shadow-2xl z-10 border border-white/10">
+              <div className="flex items-center gap-2 font-bold text-sci-2">
                 <RouteIcon className="h-4 w-4" />
                 <span>{fmt.km(m.route.length_m)}</span>
               </div>
-              <div className="text-fg-muted flex items-center gap-1">
-                <Mountain className="h-3.5 w-3.5 text-ember" />
+              <div className="text-slate-300 flex items-center gap-1.5">
+                <Mountain className="h-3.5 w-3.5 text-amber-400" />
                 <span>+{Math.round(m.route.climb_m)} m / -{Math.round(m.route.descent_m)} m</span>
               </div>
-              <div className="text-fg-muted flex items-center gap-1">
-                <Clock className="h-3.5 w-3.5 text-fg-dim" />
+              <div className="text-slate-300 flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5 text-slate-400" />
                 <span>{m.route.estimated_duration_h ? `${m.route.estimated_duration_h.toFixed(1)} h` : '—'}</span>
               </div>
-              <div className="text-fg-muted flex items-center gap-1">
-                <ShieldAlert className="h-3.5 w-3.5 text-danger" />
+              <div className="text-slate-300 flex items-center gap-1.5">
+                <ShieldAlert className="h-3.5 w-3.5 text-rose-400" />
                 <span>Hazardous: {Math.round(m.route.hazard_m)} m</span>
               </div>
             </div>
@@ -242,7 +242,7 @@ export default function RoutesPage() {
         </div>
 
         {/* Right side panel: Parameters, Waypoints, Charts, Hazard segments */}
-        <aside className="border-l border-line bg-panel/80 overflow-y-auto p-3.5 space-y-3.5 flex flex-col">
+        <aside className="border-l border-line/80 bg-panel/85 backdrop-blur-xl overflow-y-auto p-4 space-y-4 flex flex-col">
           {error && <Callout kind="danger">{error}</Callout>}
 
           {/* Strategy selection */}

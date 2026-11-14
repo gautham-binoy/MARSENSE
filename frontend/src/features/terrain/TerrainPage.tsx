@@ -293,13 +293,13 @@ export default function TerrainPage() {
         </PageHeader>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_440px]">
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_460px]">
         {/* Left: 3D Mars globe showing high-res CTX DTM & slope overlays */}
-        <div className="relative min-h-[300px] lg:min-h-0 scanline">
+        <div className="relative min-h-[300px] lg:min-h-0 bg-space">
           <MarsGlobe ref={globe} showRoute={true} initialView="jezero" />
 
-          {/* Preset Buttons Floating Pill */}
-          <div className="absolute top-3 left-3 panel-2 p-1.5 flex flex-wrap gap-1 shadow-xl max-w-lg">
+          {/* Preset Buttons Floating Pill Dock */}
+          <div className="absolute top-4 left-4 glass-dock p-2 flex flex-wrap gap-1.5 shadow-2xl max-w-lg z-10 border border-white/10">
             {activeMode === 'bbox'
               ? PRESET_REGIONS.map((preset) => (
                   <Button
@@ -307,6 +307,7 @@ export default function TerrainPage() {
                     size="xs"
                     variant={selectedPreset === preset.id ? 'sci' : 'ghost'}
                     onClick={() => handleSelectPreset(preset.id)}
+                    className="rounded-md font-medium text-[11.5px]"
                   >
                     {preset.name}
                   </Button>
@@ -317,6 +318,7 @@ export default function TerrainPage() {
                     size="xs"
                     variant={selectedTransect === preset.id ? 'sci' : 'ghost'}
                     onClick={() => handleSelectTransectPreset(preset.id)}
+                    className="rounded-md font-medium text-[11.5px]"
                   >
                     {preset.name}
                   </Button>
@@ -324,18 +326,18 @@ export default function TerrainPage() {
           </div>
 
           {/* Bottom active layer indication */}
-          <div className="absolute bottom-3 left-3 panel-2 px-3 py-1.5 flex items-center gap-3 text-[11px] shadow-lg">
-            <div className="flex items-center gap-1.5 text-sci-2 font-medium">
-              <Mountain className="h-3.5 w-3.5" />
+          <div className="absolute bottom-4 left-4 glass-dock px-3.5 py-2 flex items-center gap-3 text-[11.5px] shadow-xl z-10 border border-white/10">
+            <div className="flex items-center gap-2 text-sci-2 font-semibold">
+              <Mountain className="h-4 w-4" />
               <span>USGS Mars 2020 CTX DTM (20 m/px)</span>
             </div>
             {activeMode === 'bbox' && stats && (
-              <div className="text-fg-dim mono border-l border-line pl-3">
+              <div className="text-slate-400 mono border-l border-line/80 pl-3">
                 {stats.area_km2} km² evaluated ({stats.n_pixels?.toLocaleString()} cells)
               </div>
             )}
             {activeMode === 'profile' && profileResult && (
-              <div className="text-fg-dim mono border-l border-line pl-3">
+              <div className="text-slate-400 mono border-l border-line/80 pl-3">
                 {fmt.km(profileResult.length_m)} transect · {profileResult.samples.length} elevation posts
               </div>
             )}
@@ -343,7 +345,7 @@ export default function TerrainPage() {
         </div>
 
         {/* Right side: Mode Switchable Tools */}
-        <aside className="border-l border-line bg-panel/80 overflow-y-auto p-4 space-y-4">
+        <aside className="border-l border-line/80 bg-panel/85 backdrop-blur-xl overflow-y-auto p-4 space-y-4">
           {error && <Callout kind="danger">{error}</Callout>}
 
           {activeMode === 'bbox' ? (

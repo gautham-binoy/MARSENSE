@@ -27,14 +27,14 @@ export function ReliabilityBadge({ value, className }: { value: string | null | 
 export function ProvenanceList({ items, className }: { items?: Provenance[] | null; className?: string }) {
   if (!items?.length) return null
   return (
-    <div className={cn('flex flex-wrap items-center gap-1.5 text-[10.5px] text-fg-dim', className)}>
-      <Database className="h-3 w-3" />
+    <div className={cn('flex flex-wrap items-center gap-1.5 text-[11px] text-fg-dim', className)}>
+      <Database className="h-3.5 w-3.5 text-sci/70" />
       {items.map((p, i) => (
-        <span key={i} className="inline-flex items-center gap-1">
+        <span key={i} className="inline-flex items-center gap-1.5 bg-panel-2/60 px-2 py-0.5 rounded-md border border-line/40">
           <ReliabilityBadge value={p.reliability} />
-          <span className="mono">{p.dataset_id ?? 'none'}</span>
-          {p.resolution_m ? <span>@ {p.resolution_m >= 1000 ? `${(p.resolution_m / 1000).toFixed(1)} km` : `${Math.round(p.resolution_m)} m`}</span> : null}
-          {p.method ? <span className="text-fg-dim/80">· {p.method}</span> : null}
+          <span className="mono font-medium text-slate-300">{p.dataset_id ?? 'none'}</span>
+          {p.resolution_m ? <span className="text-slate-400">@ {p.resolution_m >= 1000 ? `${(p.resolution_m / 1000).toFixed(1)} km` : `${Math.round(p.resolution_m)} m`}</span> : null}
+          {p.method ? <span className="text-slate-400">· {p.method}</span> : null}
         </span>
       ))}
     </div>
@@ -42,13 +42,16 @@ export function ProvenanceList({ items, className }: { items?: Provenance[] | nu
 }
 
 export function Stat({ label, value, unit, hint, tone, className }: { label: string; value: ReactNode; unit?: string; hint?: string; tone?: 'safe' | 'caution' | 'danger' | 'sci' | 'default'; className?: string }) {
-  const color = { safe: 'text-safe', caution: 'text-caution', danger: 'text-danger', sci: 'text-sci-2', default: 'text-fg' }[tone ?? 'default']
+  const color = { safe: 'text-safe', caution: 'text-caution', danger: 'text-danger', sci: 'text-sci-2', default: 'text-white' }[tone ?? 'default']
   const body = (
-    <div className={cn('panel-2 px-2.5 py-2 min-w-0', className)}>
-      <div className="label truncate flex items-center gap-1">{label}{hint && <Info className="h-2.5 w-2.5 opacity-60" />}</div>
-      <div className={cn('mono text-[15px] font-semibold leading-tight mt-0.5 truncate', color)}>
+    <div className={cn('panel-2 px-3 py-2.5 min-w-0 border border-line-2/50 rounded-xl transition-all duration-150 hover:border-slate-500/50 shadow-sm', className)}>
+      <div className="label truncate flex items-center justify-between gap-1 text-slate-400">
+        <span>{label}</span>
+        {hint && <Info className="h-3 w-3 opacity-50 shrink-0" />}
+      </div>
+      <div className={cn('mono text-[16px] font-bold leading-tight mt-1 truncate', color)}>
         {value}
-        {unit && <span className="text-[10px] text-fg-dim font-normal ml-1">{unit}</span>}
+        {unit && <span className="text-[11px] text-slate-400 font-normal ml-1">{unit}</span>}
       </div>
     </div>
   )
@@ -56,12 +59,16 @@ export function Stat({ label, value, unit, hint, tone, className }: { label: str
 }
 
 export function Callout({ kind = 'info', children, className }: { kind?: 'info' | 'warn' | 'danger'; children: ReactNode; className?: string }) {
-  const style = { info: 'border-sci/30 bg-sci/5 text-sci-2', warn: 'border-caution/30 bg-caution/5 text-caution', danger: 'border-danger/30 bg-danger/5 text-danger' }[kind]
+  const style = {
+    info: 'border-sci/30 bg-sci/10 text-sci-2 shadow-[0_0_12px_rgba(6,182,212,0.08)]',
+    warn: 'border-caution/30 bg-caution/10 text-caution shadow-[0_0_12px_rgba(245,158,11,0.08)]',
+    danger: 'border-danger/30 bg-danger/10 text-danger shadow-[0_0_12px_rgba(239,68,68,0.08)]',
+  }[kind]
   const Icon = kind === 'info' ? Info : AlertTriangle
   return (
-    <div className={cn('flex gap-2 rounded-md border px-2.5 py-2 text-[11.5px] leading-snug', style, className)}>
-      <Icon className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-      <div className="text-fg/90">{children}</div>
+    <div className={cn('flex gap-2.5 rounded-xl border px-3 py-2.5 text-[12px] leading-relaxed', style, className)}>
+      <Icon className="h-4 w-4 shrink-0 mt-0.5" />
+      <div className="text-slate-200">{children}</div>
     </div>
   )
 }
@@ -69,16 +76,29 @@ export function Callout({ kind = 'info', children, className }: { kind?: 'info' 
 export function ScoreRing({ score, size = 72, label, tone }: { score: number; size?: number; label?: string; tone?: string }) {
   const r = (size - 8) / 2
   const c = 2 * Math.PI * r
-  const col = tone ?? (score >= 75 ? '#34d399' : score >= 55 ? '#fbbf24' : '#f87171')
+  const col = tone ?? (score >= 75 ? '#10b981' : score >= 55 ? '#f59e0b' : '#ef4444')
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
+    <div className="relative shrink-0 flex items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="#262c38" strokeWidth={5} fill="none" />
-        <circle cx={size / 2} cy={size / 2} r={r} stroke={col} strokeWidth={5} fill="none" strokeDasharray={c} strokeDashoffset={c * (1 - Math.max(0, Math.min(100, score)) / 100)} strokeLinecap="round" style={{ transition: 'stroke-dashoffset 600ms ease' }} />
+        <circle cx={size / 2} cy={size / 2} r={r} stroke="#1e293b" strokeWidth={5} fill="none" />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          stroke={col}
+          strokeWidth={5}
+          fill="none"
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - Math.max(0, Math.min(100, score)) / 100)}
+          strokeLinecap="round"
+          style={{ transition: 'stroke-dashoffset 600ms ease' }}
+        />
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="mono font-semibold leading-none" style={{ fontSize: size * 0.26, color: col }}>{Math.round(score)}</span>
-        {label && <span className="label mt-0.5" style={{ fontSize: Math.max(8, size * 0.11) }}>{label}</span>}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <span className="mono font-bold leading-none tracking-tight" style={{ fontSize: size * 0.28, color: col }}>
+          {Math.round(score)}
+        </span>
+        {label && <span className="label mt-0.5" style={{ fontSize: Math.max(8.5, size * 0.12) }}>{label}</span>}
       </div>
     </div>
   )
@@ -86,8 +106,14 @@ export function ScoreRing({ score, size = 72, label, tone }: { score: number; si
 
 export function Bar({ value, max = 100, color, className }: { value: number; max?: number; color?: string; className?: string }) {
   return (
-    <div className={cn('h-1.5 w-full rounded-full bg-line overflow-hidden', className)}>
-      <div className="h-full rounded-full transition-all duration-500" style={{ width: `${Math.max(0, Math.min(100, (value / max) * 100))}%`, background: color ?? (value >= 70 ? '#34d399' : value >= 45 ? '#fbbf24' : '#f87171') }} />
+    <div className={cn('h-2 w-full rounded-full bg-line overflow-hidden p-[1px]', className)}>
+      <div
+        className="h-full rounded-full transition-all duration-500 shadow-sm"
+        style={{
+          width: `${Math.max(0, Math.min(100, (value / max) * 100))}%`,
+          background: color ?? (value >= 70 ? '#10b981' : value >= 45 ? '#f59e0b' : '#ef4444'),
+        }}
+      />
     </div>
   )
 }
@@ -95,16 +121,16 @@ export function Bar({ value, max = 100, color, className }: { value: number; max
 export function Legend({ stops, type, units }: { stops: { value: number | string; color: string; label?: string | null }[]; type?: string | null; units?: string | null }) {
   if (type === 'gradient') {
     return (
-      <div className="text-[10px] text-fg-dim">
-        <div className="h-2 rounded-sm" style={{ background: `linear-gradient(90deg, ${stops.map((s) => s.color).join(',')})` }} />
-        <div className="flex justify-between mt-0.5 mono"><span>{stops[0].label}</span><span>{units}</span><span>{stops[stops.length - 1].label}</span></div>
+      <div className="text-[11px] text-slate-400">
+        <div className="h-2.5 rounded-full shadow-inner" style={{ background: `linear-gradient(90deg, ${stops.map((s) => s.color).join(',')})` }} />
+        <div className="flex justify-between mt-1 mono text-[10.5px]"><span>{stops[0].label}</span><span className="text-slate-300 font-medium">{units}</span><span>{stops[stops.length - 1].label}</span></div>
       </div>
     )
   }
   return (
-    <div className="flex flex-wrap gap-x-2.5 gap-y-1 text-[10px] text-fg-muted">
+    <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-[11px] text-slate-300">
       {stops.map((s, i) => (
-        <span key={i} className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-sm" style={{ background: s.color }} />{s.label ?? String(s.value)}</span>
+        <span key={i} className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full shadow-sm" style={{ background: s.color }} />{s.label ?? String(s.value)}</span>
       ))}
     </div>
   )
@@ -112,10 +138,10 @@ export function Legend({ stops, type, units }: { stops: { value: number | string
 
 export function PageHeader({ title, subtitle, children }: { title: string; subtitle?: ReactNode; children?: ReactNode }) {
   return (
-    <div className="flex items-start justify-between gap-3 mb-3">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-line/40">
       <div>
-        <h1 className="text-[16px] font-semibold tracking-tight text-fg">{title}</h1>
-        {subtitle && <p className="text-[11.5px] text-fg-muted mt-0.5 max-w-2xl">{subtitle}</p>}
+        <h1 className="text-[18px] sm:text-[20px] font-bold tracking-tight text-white flex items-center gap-2">{title}</h1>
+        {subtitle && <p className="text-[12.5px] text-slate-400 mt-1 max-w-3xl leading-relaxed">{subtitle}</p>}
       </div>
       {children && <div className="flex items-center gap-2 shrink-0">{children}</div>}
     </div>
@@ -123,7 +149,7 @@ export function PageHeader({ title, subtitle, children }: { title: string; subti
 }
 
 export function Spinner({ className }: { className?: string }) {
-  return <span className={cn('inline-block h-3.5 w-3.5 rounded-full border-2 border-sci/30 border-t-sci animate-spin', className)} />
+  return <span className={cn('inline-block h-4 w-4 rounded-full border-2 border-sci/30 border-t-sci animate-spin', className)} />
 }
 
 export function classTone(cls: string | null | undefined): 'safe' | 'caution' | 'danger' | 'default' {

@@ -85,20 +85,20 @@ export default function ResourcesPage() {
         </PageHeader>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_460px]">
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_480px]">
         {/* Left: 3D Mars globe showing mineral evidence footprints */}
-        <div className="relative min-h-[300px] lg:min-h-0 scanline">
+        <div className="relative min-h-[300px] lg:min-h-0 bg-space">
           <MarsGlobe ref={globe} showRoute={true} initialView="jezero" />
 
           {/* Water-Ice Integrity Alert Floating Pill */}
-          <div className="absolute top-3 left-3 right-3 lg:right-auto panel-2 p-2.5 shadow-xl max-w-lg border border-caution/40">
-            <div className="flex items-start gap-2 text-[11px]">
-              <AlertCircle className="h-4 w-4 text-caution shrink-0 mt-0.5" />
+          <div className="absolute top-4 left-4 right-4 lg:right-auto glass-dock p-3.5 shadow-2xl max-w-lg border border-amber-400/30 z-10">
+            <div className="flex items-start gap-2.5 text-[11.5px]">
+              <AlertCircle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <span className="font-semibold text-fg">Critical Water-Ice Finding: </span>
-                <span className="text-fg-muted">
+                <span className="font-bold text-white">Critical Water-Ice Finding: </span>
+                <span className="text-slate-300">
                   No orbital radar (SHARAD) or neutron detector indicates near-surface ice at Jezero (18°N).
-                  Aqueous mineral detections indicate <strong className="text-fg">ancient water activity</strong>, not accessible ice reserves.
+                  Aqueous mineral detections indicate <strong className="text-white">ancient water activity</strong>, not accessible ice reserves.
                 </span>
               </div>
             </div>
@@ -106,7 +106,7 @@ export default function ResourcesPage() {
         </div>
 
         {/* Right side: Evidence Directory, ISRU Dehydration Realities, Inspection */}
-        <aside className="border-l border-line bg-panel/80 overflow-y-auto p-4 space-y-3.5">
+        <aside className="border-l border-line/80 bg-panel/85 backdrop-blur-xl overflow-y-auto p-4 space-y-4">
           <Tabs value={resourceTab} onValueChange={(v) => setResourceTab(v as typeof resourceTab)}>
             <TabsList className="grid grid-cols-2 w-full mb-2">
               <TabsTrigger value="evidence" className="text-[11.5px] flex items-center gap-1.5">

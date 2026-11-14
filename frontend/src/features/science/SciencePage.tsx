@@ -211,20 +211,20 @@ export default function SciencePage() {
         </PageHeader>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_460px]">
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_480px]">
         {/* Left: 3D Mars globe with target markers */}
-        <div className="relative min-h-[300px] lg:min-h-0 scanline">
+        <div className="relative min-h-[300px] lg:min-h-0 bg-space">
           <MarsGlobe ref={globe} showRoute={true} initialView="jezero" />
 
           {/* Floating type filter pills */}
-          <div className="absolute top-3 left-3 panel-2 p-1.5 flex flex-wrap gap-1 shadow-xl max-w-xl">
+          <div className="absolute top-4 left-4 glass-dock p-2 flex flex-wrap gap-1.5 shadow-2xl max-w-xl z-10 border border-white/10">
             {types.map((typeKey) => (
               <Button
                 key={typeKey}
                 size="xs"
                 variant={selectedType === typeKey ? 'sci' : 'ghost'}
                 onClick={() => setSelectedType(typeKey)}
-                className="capitalize text-[10.5px]"
+                className="capitalize text-[11px] rounded-md"
               >
                 {typeKey.replace(/_/g, ' ')}
               </Button>
@@ -233,18 +233,19 @@ export default function SciencePage() {
 
           {/* Bottom active selection tag */}
           {activeDetail && (
-            <div className="absolute bottom-3 left-3 panel-2 px-3 py-2 flex items-center gap-3 text-[11px] shadow-lg max-w-md">
+            <div className="absolute bottom-4 left-4 glass-dock px-4 py-2.5 flex items-center gap-3 text-[11.5px] shadow-xl max-w-md z-10 border border-white/10">
               <div>
-                <div className="font-semibold text-fg flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-ember" />
+                <div className="font-bold text-white flex items-center gap-1.5">
+                  <Sparkles className="h-4 w-4 text-amber-400" />
                   {activeDetail.name}
                 </div>
-                <div className="text-[10.5px] text-fg-dim line-clamp-1">{activeDetail.summary}</div>
+                <div className="text-[11px] text-slate-300 line-clamp-1">{activeDetail.summary}</div>
               </div>
               <Button
                 size="xs"
                 variant={m.targets.includes(activeDetail.id) ? 'secondary' : 'sci'}
                 onClick={() => handleToggleMissionObjective(activeDetail.id)}
+                className="rounded-md shrink-0"
               >
                 {m.targets.includes(activeDetail.id) ? 'Deselect' : 'Select'}
               </Button>
@@ -253,7 +254,7 @@ export default function SciencePage() {
         </div>
 
         {/* Right side: Search, Target cards directory, Inspection details */}
-        <aside className="border-l border-line bg-panel/80 overflow-y-auto p-4 space-y-3.5">
+        <aside className="border-l border-line/80 bg-panel/85 backdrop-blur-xl overflow-y-auto p-4 space-y-4">
           <Tabs value={scienceTab} onValueChange={(v) => setScienceTab(v as typeof scienceTab)}>
             <TabsList className="grid grid-cols-2 w-full mb-2">
               <TabsTrigger value="targets" className="text-[11.5px] flex items-center gap-1.5">

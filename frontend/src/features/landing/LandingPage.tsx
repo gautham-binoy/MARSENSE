@@ -168,13 +168,13 @@ export default function LandingPage() {
         </PageHeader>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_440px]">
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_460px]">
         {/* Left: 3D Mars globe with candidate markers and 1 km evaluation zones */}
-        <div className="relative min-h-[300px] lg:min-h-0 scanline">
+        <div className="relative min-h-[300px] lg:min-h-0 bg-space">
           <MarsGlobe ref={globe} showCandidates={true} initialView="jezero" />
 
-          {/* Quick candidate fly buttons */}
-          <div className="absolute top-3 left-3 panel-2 p-1.5 flex flex-wrap gap-1 shadow-xl max-w-lg">
+          {/* Quick candidate fly buttons dock */}
+          <div className="absolute top-4 left-4 glass-dock p-2 flex flex-wrap gap-1.5 shadow-2xl max-w-lg z-10 border border-white/10">
             {candidates.map((c) => (
               <Button
                 key={c.name}
@@ -185,8 +185,9 @@ export default function LandingPage() {
                   if (s) setSelectedSite(s)
                   globe.current?.flyTo(c.lon, c.lat, 8000)
                 }}
+                className="rounded-md font-medium text-[11px]"
               >
-                <Target className="h-2.5 w-2.5" />
+                <Target className="h-3 w-3 mr-1" />
                 {c.name}
               </Button>
             ))}
@@ -194,16 +195,16 @@ export default function LandingPage() {
 
           {/* Active base indicator */}
           {m.base && (
-            <div className="absolute bottom-3 left-3 panel-2 px-3 py-1.5 flex items-center gap-2 text-[11px] shadow-lg">
-              <Home className="h-3.5 w-3.5 text-mars" />
-              <span>Current Mission Base:</span>
-              <strong className="mono text-fg">{fmt.coord(m.base.lon, m.base.lat)}</strong>
+            <div className="absolute bottom-4 left-4 glass-dock px-3.5 py-2 flex items-center gap-2.5 text-[11.5px] shadow-xl z-10 border border-white/10">
+              <Home className="h-4 w-4 text-amber-400" />
+              <span className="text-slate-300">Current Mission Base:</span>
+              <strong className="mono text-white font-semibold">{fmt.coord(m.base.lon, m.base.lat)}</strong>
             </div>
           )}
         </div>
 
         {/* Right side: Ranked comparison list, Factor breakdown, Weight Sliders */}
-        <aside className="border-l border-line bg-panel/80 overflow-y-auto p-4 space-y-4">
+        <aside className="border-l border-line/80 bg-panel/85 backdrop-blur-xl overflow-y-auto p-4 space-y-4">
           {error && <Callout kind="danger">{error}</Callout>}
 
           <Tabs defaultValue="ranked" className="w-full">

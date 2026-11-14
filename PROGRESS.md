@@ -12,6 +12,36 @@
 
 ## Progress Log
 
+### 2026-11-14 — Phase 12: Comprehensive UI/UX Design System Overhaul & Modernization
+- **Objective:** Eliminate dated "AI-generated" hacker tropes (CRT scanlines, dense micro-monospace fonts, harsh borders, overcrowded statistics cards) and establish a modern, refreshing, ultra-clean aerospace flight-deck user interface inspired by modern NASA Artemis flight displays, Linear, and Stripe.
+- **Completed:**
+  - **CSS Design System Overhaul (`frontend/src/index.css`):**
+    - Eliminated `.scanline::after` CRT lines across the entire application, eliminating visual noise, text degradation, and repainting overhead.
+    - Upgraded color palette to rich deep cosmic navy/obsidian (`#07090e`, `#0d121e`, `#12192a`), soft borders (`#1e293b`, `#28354f`), and high-legibility slate text (`#f1f5f9`, `#94a3b8`, `#64748b`).
+    - Introduced modern glassmorphism utility classes (`.panel`, `.panel-2`, `.glass-pill`, `.glass-dock`) with backdrop blur ($16\text{px}$ / $20\text{px}$) and subtle glowing borders.
+    - Modernized scrollbar styling with rounded pill thumbs.
+    - Refined typography: clean modern sans (`Inter`) for human readability, reserving tabular monospace for coordinates and telemetry numbers.
+  - **App Shell & Workflow Navigation (`frontend/src/app/Shell.tsx`):**
+    - Reorganized navigation into 4 logical mission lifecycle groups: *Mission Overview*, *Reconnaissance*, *Science & Resources*, *Operations*, and *Documentation*.
+    - Upgraded top navigation bar with a precision **Mars Chronometry HUD Instrument** (live Allison & McEwen Sol ticker, LTST, $L_s$, dust storm badge) and direct 1-click **Operations Manual** download.
+    - Added an active Mission Status summary card in the sidebar footer with live lock status for Base, Targets, Traverse distance, and feasibility badge.
+  - **Modernized UI Primitives:**
+    - `Button`: Sleek gradient fills, subtle inner bevels, smooth active scale transitions (`active:scale-[0.98]`).
+    - `Card`: Refined padding, frosted glass backgrounds, and high-readability headers.
+    - `Badge`: Soft pill tags with colored glow highlights (`rounded-full`).
+    - `Tabs`: Segmented iOS/Linear-style pill controls with smooth active state indicators.
+    - `Stat`: High-contrast card with crisp uppercase label, large bold tabular value, and subtle border highlights.
+    - `ScoreRing`: Polished SVG ring with smooth transition and glow indicators.
+  - **Feature Views Refresh:**
+    - `MissionControlPage.tsx`: Floating regional flight card, horizontal rover telemetry dock, hero mission status ring, and structured telemetry cards.
+    - `ExplorerPage.tsx`: Floating glass dock for click modes (Inspect, Base, Candidate, Route) and camera controls.
+    - `TerrainPage.tsx` & `LandingPage.tsx`: Floating preset docks, modern cross-section charts, and clear ranking cards.
+    - `RoutesPage.tsx` & `SurvivalPage.tsx`: Modern cross-section and multi-line depletion timelines with legible axes and tooltips.
+    - `ResourcesPage.tsx` & `SciencePage.tsx`: Cleaned floating alerts and modern directory cards.
+  - **Verification:**
+    - `npm run build` succeeds cleanly with 0 TypeScript/CSS errors.
+    - All **54 / 54 tests passing** (21 Pytest, 17 Vitest, 16 Playwright E2E). Playwright E2E runtime reduced from 1.4m to 1.1m.
+
 ### 2026-11-14 — Phase 11: Elevation Transects, Data Exporters, Full Deployment Stack & Documentation
 - **Completed:**
   - **Interactive Elevation Transect Profile Tool (`TerrainPage.tsx`):**
