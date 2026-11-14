@@ -6,7 +6,7 @@
 [![React 19](https://img.shields.io/badge/React-19.0-61dafb.svg)](https://react.dev/)
 [![TypeScript 5.8](https://img.shields.io/badge/TypeScript-5.8-3178c6.svg)](https://www.typescriptlang.org/)
 [![CesiumJS](https://img.shields.io/badge/CesiumJS-1.147-ff9900.svg)](https://cesium.com/)
-[![Tests Passing](https://img.shields.io/badge/Tests-52%20passed-brightgreen.svg)]()
+[![Tests Passing](https://img.shields.io/badge/Tests-54%20passed-brightgreen.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **"Can astronauts safely explore a selected region of Mars, achieve their scientific objectives, manage their life-support resources, and return safely?"**
@@ -188,26 +188,24 @@ npm run dev
 
 ## 🧪 Comprehensive Automated Test Suites
 
-MARSENSE includes a test suite covering backend mathematical routines, API contracts, Zustand state management, Mars chronometry, route GIS exporters, and Playwright end-to-end browser workflows:
+MARSENSE includes a test suite covering backend mathematical routines, API contracts, Zustand state management, Mars chronometry, route GIS exporters, elevation transect sampling, and Playwright end-to-end browser workflows:
 
 ```bash
-# 1. Run Python Backend Unit & Integration Tests (20 tests)
-cd backend
-PYTHONPATH=. .venv/bin/pytest tests/
+# 1. Run Python Backend Unit & Integration Tests (21 tests)
+PYTHONPATH=backend:tests backend/.venv/bin/pytest backend/tests tests/
 
 # 2. Run Frontend Unit & State Tests (17 tests)
-cd ../frontend
-npm run test
+npm --prefix frontend run test
 
-# 3. Run Playwright End-to-End Browser Workflow Tests (15 tests)
-npm run e2e
+# 3. Run Playwright End-to-End Browser Workflow Tests (16 tests)
+npm --prefix frontend run e2e
 ```
 
 ### Test Verification Summary
-- **Backend (Pytest):** 20/20 passing (Terrain Horn/Riley matrices, A* pathfinding, BVAD mass balances, safety caps, PDF generation).
+- **Backend (Pytest):** 21/21 passing (Terrain Horn/Riley matrices, A* pathfinding, BVAD mass balances, safety caps, PDF generation, full-lifecycle system integration).
 - **Frontend (Vitest):** 17/17 passing (Mission store, map store, formatting utilities, Mars chronometry Allison-McEwen algorithms, GeoJSON & GPX GIS route exporters).
-- **E2E (Playwright):** 15/15 passing (Full navigation across all 11 application pages, Cesium globe, route solver, simulator depletion curves, assessment export, Mission Vault modal, ISRU Chemical Plant, Three Forks MSR depot, Monte Carlo stochastic risk tab).
-- **Total:** **52 / 52 automated tests passing with zero errors.**
+- **E2E (Playwright):** 16/16 passing (Full navigation across all 11 application pages, Cesium globe, route solver, simulator depletion curves, assessment export, Mission Vault modal, ISRU Chemical Plant, Three Forks MSR depot, Monte Carlo stochastic risk tab, Elevation Transect profiling).
+- **Total:** **54 / 54 automated tests passing with zero errors.**
 
 ---
 
@@ -266,6 +264,7 @@ MARSENSE/
 │   │   ├── models/                 # Pydantic schemas for requests, responses, telemetry
 │   │   └── services/               # Core scientific engines (Horn, Riley, A*, BVAD, ReportLab)
 │   ├── tests/                      # Pytest suite (20 automated tests)
+│   ├── Dockerfile                  # Production container definition (Python 3.12 + GDAL)
 │   ├── requirements.txt            # Python dependencies
 │   └── pyproject.toml
 ├── data/                           # Authentic NASA & USGS scientific data assets
@@ -274,15 +273,28 @@ MARSENSE/
 │   └── rasters/                    # USGS CTX 20m DTM & MGS MOLA elevation rasters
 ├── docs/                           # Architectural, scientific & demonstration documentation
 │   ├── ANTIGRAVITY_HANDOFF_AUDIT.md # Comprehensive 24-module codebase audit
+│   ├── API_DOCUMENTATION.md        # Comprehensive REST API reference & schemas
 │   ├── ARCHITECTURE.md             # System architecture & component flow
 │   ├── DATA_SOURCES.md             # NASA/USGS dataset provenance & validation
-│   ├── HACKATHON_DEMO.md           # 15-step live demonstration script & judging Q&A
+│   ├── HACKATHON_DEMO.md           # 18-step live demonstration script & judging Q&A
+│   ├── LIMITATIONS.md              # Honest scientific caveats & resolution limits
 │   ├── PROJECT_PLAN.md             # Milestone roadmaps
-│   └── SCIENTIFIC_METHODOLOGY.md   # Peer-reviewed mathematical models & formulas
+│   ├── SCIENTIFIC_METHODOLOGY.md   # Peer-reviewed mathematical models & formulas
+│   └── TESTING.md                  # Test suite documentation & coverage guide
 ├── frontend/                       # React 19 + TypeScript + Vite Frontend Client
-│   ├── e2e/                        # Playwright E2E browser tests (11 workflows)
+│   ├── e2e/                        # Playwright E2E browser tests (15 workflows)
 │   ├── src/
 │   │   ├── components/             # Reusable UI widgets, navigation bars, alerts
+│   │   ├── features/               # 11 feature views (explorer, routes, survival, etc.)
+│   │   ├── lib/                    # Mathematical formatters, Mars chronometry, GIS exporters
+│   │   └── store/                  # Zustand global stores (mission, map layers)
+│   ├── Dockerfile                  # Multi-stage production container (Node 20 -> Nginx)
+│   ├── nginx.conf                  # Production reverse proxy routing /api to backend
+│   ├── package.json
+│   └── vite.config.ts
+├── docker-compose.yml              # Multi-container orchestration (backend, frontend, postgis)
+├── PROGRESS.md                     # Engineering handoff progression log
+└── README.md                       # Master project documentation
 │   │   ├── features/               # 11 feature views (explorer, routes, survival, etc.)
 │   │   ├── lib/                    # Mathematical formatters, Cesium adapters, utilities
 │   │   └── store/                  # Zustand global stores (mission, map layers)

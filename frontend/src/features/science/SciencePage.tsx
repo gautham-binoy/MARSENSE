@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Archive,
   Check,
+  Download,
   Plus,
   Route as RouteIcon,
   Search,
@@ -102,6 +103,65 @@ export default function SciencePage() {
     m.addRoutePoint({ lon: t.lon, lat: t.lat, label: t.name })
   }
 
+  const handleSelectAllHighPriority = () => {
+    const highPri = targets.filter((t) => t.priority >= 4).map((t) => t.id)
+    highPri.forEach((id) => {
+      if (!m.targets.includes(id)) {
+        m.toggleTarget(id)
+      }
+    })
+  }
+
+  const exportTargetsGeoJson = () => {
+    const fc = {
+      type: 'FeatureCollection',
+      name: 'MARSENSE_Jezero_Science_Targets',
+      crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+      features: targets.map((t) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [t.lon, t.lat, t.elevation_m] },
+        properties: {
+          id: t.id,
+          name: t.name,
+          type: t.type,
+          priority: t.priority,
+          summary: t.summary,
+          science_value: t.science_value,
+          mission: t.mission,
+          instruments: t.instruments,
+        },
+      })),
+    }
+    const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/geo+json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'MARSENSE_Jezero_Science_Targets.geojson'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  const exportTargetsCsv = () => {
+    const header = 'id,name,type,priority,longitude,latitude,elevation_m,summary,science_value\n'
+    const rows = targets
+      .map(
+        (t) =>
+          `"${t.id}","${t.name}","${t.type}",${t.priority},${t.lon.toFixed(6)},${t.lat.toFixed(6)},${t.elevation_m},"${t.summary.replace(/"/g, '""')}","${t.science_value.replace(/"/g, '""')}"`
+      )
+      .join('\n')
+    const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'MARSENSE_Jezero_Science_Targets.csv'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden bg-space">
       {/* Header bar */}
@@ -111,6 +171,36 @@ export default function SciencePage() {
           subtitle="Documented geological features, astrobiological sample return candidates, and paleo-fluvial formations in Jezero."
         >
           <div className="flex items-center gap-2">
+            <Button
+              size="xs"
+              variant="secondary"
+              onClick={handleSelectAllHighPriority}
+              className="text-[11px]"
+              title="Select all targets with 4 or 5 stars"
+            >
+              <Sparkles className="h-3 w-3 mr-1 text-sci" />
+              Select 4★+
+            </Button>
+            <Button
+              size="xs"
+              variant="secondary"
+              onClick={exportTargetsGeoJson}
+              className="text-[11px]"
+              title="Export targets as GeoJSON"
+            >
+              <Download className="h-3 w-3 mr-1" />
+              GeoJSON
+            </Button>
+            <Button
+              size="xs"
+              variant="secondary"
+              onClick={exportTargetsCsv}
+              className="text-[11px]"
+              title="Export targets as CSV"
+            >
+              <Download className="h-3 w-3 mr-1" />
+              CSV
+            </Button>
             <Badge variant="sci" className="mono">
               {m.targets.length} Selected Objectives
             </Badge>

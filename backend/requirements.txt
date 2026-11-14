@@ -1,0 +1,17 @@
+aiosqlite>=0.22.1
+fastapi>=0.115
+geopandas>=1.2.0
+httpx>=0.28.1
+matplotlib>=3.11.2
+numpy>=2.0.0
+psycopg[binary]>=3.3.9
+pydantic>=2
+pydantic-settings>=2.16.2
+pyproj>=3.8.0
+python-multipart>=0.0.33
+rasterio>=1.5.2
+reportlab>=5.1.0
+scipy>=1.18.1
+shapely>=2.2.0
+sqlalchemy>=2
+uvicorn[standard]>=0.34.0

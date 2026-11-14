@@ -4,13 +4,44 @@
 - **Project:** MARSENSE – The Martian Survival Navigator
 - **Current Status:** **HACKATHON READY — ALL PHASES COMPLETE**
 - **Active Agent:** Antigravity (Successfully taken over from Devin AI)
-- **Latest Update:** 2026-11-13
-- **Test Suite Status:** **52 / 52 Tests Passing** (20 Pytest, 17 Vitest, 15 Playwright E2E)
+- **Latest Update:** 2026-11-14
+- **Test Suite Status:** **54 / 54 Tests Passing** (21 Pytest, 17 Vitest, 16 Playwright E2E)
 - **TypeScript Build:** 0 errors (`npm run build` verified)
 
 ---
 
 ## Progress Log
+
+### 2026-11-14 — Phase 11: Elevation Transects, Data Exporters, Full Deployment Stack & Documentation
+- **Completed:**
+  - **Interactive Elevation Transect Profile Tool (`TerrainPage.tsx`):**
+    - Added mode switcher (`Region Statistics` vs `Elevation Transect`).
+    - Added transect presets: *Delta Scarp Transect*, *Butler to Kodiak Butte*, *Neretva Vallis Breach*.
+    - Interactive Start/End coordinate inputs with adjustable sampling step ($10\ \text{m}$, $20\ \text{m}$, $50\ \text{m}$).
+    - Connected to backend `POST /api/terrain/profile`. Renders elevation cross-section AreaChart and local slope gradient LineChart with $15^\circ$ hazard reference line.
+    - Added 1-click **Export CSV** for sampled transect coordinates, elevation, slope, and DTM source.
+  - **Landing Sites Decision Matrix Export (`LandingPage.tsx`):**
+    - Added 1-click **Export CSV** downloading complete multi-criteria ranked evaluation matrix with factor breakdowns.
+  - **Planetary Science Target Exporters (`SciencePage.tsx`):**
+    - Added 1-click **Export GeoJSON** (standard RFC 7946 format with Mars 2000 coordinates and petrological metadata).
+    - Added 1-click **Export CSV** for spreadsheet analysis.
+    - Added **"Select 4★+"** bulk objective selection for mission flight planning.
+  - **Full-System Integration Test (`tests/test_system_integration.py`):**
+    - Authored end-to-end integration test verifying complete mission lifecycle:
+      `Health -> Terrain Analyze -> Elevation Transect -> Landing Compare -> A* Route Plan -> BVAD Survival Simulate -> Mission Assess -> ReportLab PDF (%PDF-1.4) -> SQLite CRUD`.
+    - Total Pytest suite increased to **21 / 21 passing**.
+  - **Playwright End-to-End Suite Expansion (`frontend/e2e/marsense.spec.ts`):**
+    - Added test for Elevation Transect Mode on Terrain page. Total E2E suite increased to **16 / 16 passing**.
+  - **Complete Production Deployment Stack:**
+    - Created `backend/Dockerfile` (Python 3.12-slim, GDAL, libgeos, Uvicorn).
+    - Created `frontend/Dockerfile` (Node 20 multi-stage build to Nginx Alpine).
+    - Created `frontend/nginx.conf` (reverse proxy for `/api/` with HTML5 push-state routing).
+    - Created `docker-compose.yml` (backend, frontend, optional PostGIS 16).
+    - Created `backend/requirements.txt` from PEP 621 dependencies.
+  - **Core Documentation Deliverables (Phase 10 Requirements Fulfilled):**
+    - Authored `docs/API_DOCUMENTATION.md` (complete OpenAPI reference for all 25+ endpoints with curl examples).
+    - Authored `docs/TESTING.md` (testing strategy, invariants, suite breakdowns, and CI commands).
+    - Authored `docs/LIMITATIONS.md` (scientific honesty disclosures: water-ice absence, Gale RAD reference provenance, sub-pixel obstacle limits, non-certification research prototype disclaimer).
 
 ### 2026-11-13 — Phase 10: Advanced Planetary Science & Mission Resilience Extensions
 - **Completed:**
@@ -102,17 +133,18 @@
 |---|---|---|
 | **Mars Globe & 3D Explorer** | COMPLETE AND VERIFIED | CesiumJS globe, IAU Mars 2000 ellipsoid, CTX mosaic/DTM layers, click-to-inspect |
 | **Mars Chronometry & Orbital Dynamics** | COMPLETE AND VERIFIED | Allison-McEwen 2000 algorithms, MSD, MTC, LTST at Jezero, $L_s$, season, dust storm alert |
-| **Terrain Intelligence Engine** | COMPLETE AND VERIFIED | Horn 1981 slope vectors, Riley 1999 TRI, Traversability index, Pytest verified |
+| **Terrain Intelligence Engine** | COMPLETE AND VERIFIED | Horn 1981 slope vectors, Riley 1999 TRI, Traversability index, Elevation Transect tool, Pytest verified |
 | **Mission Route Planner & Exporters** | COMPLETE AND VERIFIED | 8-connected A* on 20m DTM, 3 strategies, GeoJSON/GPX export, round-trip loop optimizer |
 | **Astronaut Survival Simulator** | COMPLETE AND VERIFIED | Hourly mass-balance, NASA BVAD 2022, 7 scenarios, custom contingencies, CSV export |
 | **Mission Assessment & Monte Carlo** | COMPLETE AND VERIFIED | 7-dimension scorecard, safety capping, 500-trial stochastic risk engine, $P(\text{Safe Return})$ |
 | **Mission Vault (SQLite Storage)** | COMPLETE AND VERIFIED | FastAPI SQLite persistence, browse/load/delete, flight plan JSON import/export |
 | **ISRU Chemical Synthesis Plant** | COMPLETE AND VERIFIED | MOXIE SOXE $O_2$, smectite pyrolysis $H_2O$, Sabatier fuel, live supply augmentation |
 | **Three Forks MSR Sample Depot** | COMPLETE AND VERIFIED | 10 authentic Perseverance sample tubes, sample selection, mass tracking, route integration |
-| **Landing Site Decision Matrix**| COMPLETE AND VERIFIED | Multi-criteria factor weighting, Octavia E. Butler vs candidate bases |
-| **Science Discovery Catalogue** | COMPLETE AND VERIFIED | Mars 2020 peer-reviewed targets, filters, priority tagging, route targets |
+| **Landing Site Decision Matrix**| COMPLETE AND VERIFIED | Multi-criteria factor weighting, Octavia E. Butler vs candidate bases, CSV export |
+| **Science Discovery Catalogue** | COMPLETE AND VERIFIED | Mars 2020 peer-reviewed targets, filters, priority tagging, route targets, GeoJSON/CSV export |
 | **Water & Mineral Resources** | COMPLETE AND VERIFIED | CRISM/PIXL/SHERLOC minerals, strict water-ice honesty disclosures |
 | **Atmospheric & Radiation** | COMPLETE AND VERIFIED | Perseverance MEDA diurnal curves, MSL RAD GCR reference dosimetry |
 | **PDF Mission Report Generator**| COMPLETE AND VERIFIED | ReportLab PDF generator, browser trigger, verified `%PDF-1.4` output |
-| **Scientific Methodology** | COMPLETE AND VERIFIED | Formula proofs, dataset provenance, citations, uncertainty parameters |
-| **Automated Testing Suite** | COMPLETE AND VERIFIED | 52 automated tests passing (20 Pytest, 17 Vitest, 15 Playwright) |
+| **Scientific Methodology & Documentation** | COMPLETE AND VERIFIED | Formula proofs, dataset provenance, citations, API doc, testing doc, limitations |
+| **Containerization & Deployment** | COMPLETE AND VERIFIED | Multi-stage Dockerfiles, Nginx reverse proxy, Docker Compose with PostGIS |
+| **Automated Testing Suite** | COMPLETE AND VERIFIED | 54 automated tests passing (21 Pytest, 17 Vitest, 16 Playwright) |

@@ -107,4 +107,14 @@ test.describe('MARSENSE — Martian Survival Navigator Workflow', () => {
     await expect(page.locator('text=Probabilistic Monte Carlo Survival Analysis')).toBeVisible()
     await expect(page.locator('text=Survival Probability:')).toBeVisible()
   })
+
+  test('Terrain Intelligence page executes Elevation Transect Profile', async ({ page }) => {
+    await page.goto('/terrain')
+    const transectBtn = page.getByRole('button', { name: /Elevation Transect/i }).first()
+    await expect(transectBtn).toBeVisible()
+    await transectBtn.click()
+    await expect(page.locator('text=Elevation Transect Endpoints')).toBeVisible()
+    await expect(page.locator('text=Delta Scarp Transect')).toBeVisible()
+    await expect(page.locator('text=Elevation Transect Cross-Section')).toBeVisible()
+  })
 })

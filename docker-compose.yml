@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: marsense-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATA_DIR=/app/data
+      - OFFLINE=false
+      - DATABASE_URL=sqlite:////app/data/marsense.db
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: marsense-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Optional production database (PostGIS 16)
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: marsense-postgis
+    environment:
+      POSTGRES_DB: marsense
+      POSTGRES_USER: marsense
+      POSTGRES_PASSWORD: marsense_secret_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - marsense_pgdata:/var/lib/postgresql/data
+    profiles:
+      - postgis
+
+volumes:
+  marsense_pgdata:

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  Download,
   Home,
   Play,
   Plus,
@@ -114,6 +115,26 @@ export default function LandingPage() {
     globe.current?.flyTo(site.lon, site.lat, 8000)
   }
 
+  const exportLandingCsv = () => {
+    if (!result || result.sites.length === 0) return
+    const header = 'rank,site_name,longitude,latitude,overall_score,verdict,slope_score,roughness_score,elevation_score,science_score\n'
+    const rows = result.sites
+      .map(
+        (s, i) =>
+          `${i + 1},"${s.name}",${s.lon.toFixed(4)},${s.lat.toFixed(4)},${s.overall_score},${s.verdict},${s.factors.slope?.score ?? ''},${s.factors.roughness?.score ?? ''},${s.factors.elevation?.score ?? ''},${s.factors.science_proximity?.score ?? ''}`
+      )
+      .join('\n')
+    const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'MARSENSE_Landing_Sites_Comparison.csv'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden bg-space">
       {/* Header bar */}
@@ -123,6 +144,17 @@ export default function LandingPage() {
           subtitle="Multi-criteria decision support scoring slope, roughness, EDL atmosphere depth, science proximity, and geologic diversity."
         >
           <div className="flex items-center gap-2">
+            {result && result.sites.length > 0 && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={exportLandingCsv}
+                title="Export landing comparison matrix to CSV"
+              >
+                <Download className="h-3.5 w-3.5 mr-1" />
+                Export CSV
+              </Button>
+            )}
             <Button
               variant="sci"
               size="sm"
