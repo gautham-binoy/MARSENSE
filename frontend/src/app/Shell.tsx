@@ -17,6 +17,7 @@ import {
   Route as RouteIcon,
   ShieldCheck,
   Target,
+  Video,
 } from 'lucide-react'
 import { api } from '@/lib/api'
 import { useQuery } from '@/lib/useQuery'
@@ -151,6 +152,17 @@ export function Shell() {
               {fmt.coord(cursor.lon, cursor.lat)}
             </span>
           )}
+
+          <a
+            href="/MARSENSE_DEMO_VIDEO.mp4"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-line-2/70 px-2.5 py-1 rounded-md transition-colors text-[11.5px] font-medium"
+            title="Watch Full-Length Official Demo Video (1080p Neural Voiceover)"
+          >
+            <Video className="h-3.5 w-3.5 text-sci" />
+            <span>Demo Video</span>
+          </a>
 
           <a
             href="/MARSENSE_OPERATIONS_MANUAL.pdf"
