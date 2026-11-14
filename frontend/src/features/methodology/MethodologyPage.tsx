@@ -4,6 +4,7 @@ import {
   BookOpen,
   Compass,
   Database,
+  Download,
   ExternalLink,
   Mountain,
   ShieldCheck,
@@ -31,6 +32,11 @@ export default function MethodologyPage() {
           subtitle="Transparent mathematical formulas, reliability classification vocabulary, NASA dataset registry, and academic citations."
         >
           <div className="flex items-center gap-2">
+            <Button size="sm" variant="sci" asChild>
+              <a href="/MARSENSE_OPERATIONS_MANUAL.pdf" download="MARSENSE_OPERATIONS_MANUAL.pdf">
+                <Download className="h-3.5 w-3.5 mr-1" /> Operations Manual (PDF)
+              </a>
+            </Button>
             <Badge variant="ghost">NASA Space Apps 2026</Badge>
             <Button size="sm" variant="secondary" asChild>
               <Link to="/">← Back to Mission Control</Link>
