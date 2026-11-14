@@ -1,0 +1,72 @@
+[
+  {
+    "id": "scene01_mission_control",
+    "title": "Mission Control & Mars Chronometry",
+    "audio_path": "video/audio/scene01_mission_control.mp3",
+    "duration": 46.44,
+    "text": "Welcome to MARSENSE, the Martian Survival Navigator. Developed for the NASA Space Apps Challenge, MARSENSE answers a fundamental question: Can astronauts safely explore a selected region of Mars, achieve their scientific objectives, manage their life-support resources, and return safely? Here in Mission Control, an interactive 3D globe renders the planet, focused on Jezero Crater. At the top, our Allison and McEwen chronometry instrument tracks real-time Mars Sol Dates, Local True Solar Time, and solar longitude, alerting crew to perihelion dust storm seasons. Live telemetry streams the positions and odometry of the Perseverance rover and Ingenuity helicopter, while our mission readiness deck monitors real-time crew parameters."
+  },
+  {
+    "id": "scene02_mars_explorer",
+    "title": "Mars Explorer & Layer Intelligence",
+    "audio_path": "video/audio/scene02_mars_explorer.mp3",
+    "duration": 33.888,
+    "text": "Switching to Mars Explorer, we navigate the high-resolution Martian surface. The GIS layer catalogue integrates authentic NASA datasets: the USGS Mars 2020 CTX digital terrain mosaic at twenty meters per pixel, CRISM aqueous mineralogy, THEMIS thermal inertia, and HRSC color mosaics. Clicking any point activates the location inspector, calculating areoid elevation, Horn finite-difference slope, and Riley terrain ruggedness index, while identifying nearby scientific targets and allowing instant bookmarking."
+  },
+  {
+    "id": "scene03_terrain_intelligence",
+    "title": "Terrain Intelligence & Elevation Transects",
+    "audio_path": "video/audio/scene03_terrain_intelligence.mp3",
+    "duration": 31.728,
+    "text": "In Terrain Intelligence, MARSENSE evaluates surface traversability across selected bounding boxes. It computes slope distributions and terrain classifications, distinguishing benign flats from hazardous escarpments. Using our Elevation Transect Tool, mission planners sample high-resolution micro-topography along cross-sections, such as the Western Delta scarp. Interactive charts plot elevation profiles and local slopes against a fifteen-degree hazard threshold, with instant one-click CSV data export."
+  },
+  {
+    "id": "scene04_landing_sites",
+    "title": "Landing Site & Habitat Base Selection",
+    "audio_path": "video/audio/scene04_landing_sites.mp3",
+    "duration": 30.048,
+    "text": "Selecting a safe habitat base is vital for expedition survival. The Landing Sites engine performs multi-criteria decision analysis across candidate locations, including Octavia E. Butler landing site, the Western Delta front, and South S\u00e9\u00edtah. Planners adjust factor weights for slope, roughness, scientific proximity, and resource potential. The system ranks candidate sites, identifies the optimal habitat location, and locks it into the active flight plan."
+  },
+  {
+    "id": "scene05_science_discovery",
+    "title": "Planetary Science & Sample Depot",
+    "audio_path": "video/audio/scene05_science_discovery.mp3",
+    "duration": 33.096,
+    "text": "Scientific payoff drives human planetary exploration. Our Science Discovery catalogue details high-priority astrobiological targets, carbonate units, and fluvial deposits in Jezero. Planners can search targets, filter by geological class, and bulk-select four-star objectives for traverse planning. MARSENSE also incorporates the Three Forks Mars Sample Return depot, cataloguing sealed sample tubes, core lengths, petrological units, and astrobiological significance for future retrieval."
+  },
+  {
+    "id": "scene06_water_resources",
+    "title": "Water Resources & ISRU Chemical Plant",
+    "audio_path": "video/audio/scene06_water_resources.mp3",
+    "duration": 29.496,
+    "text": "MARSENSE provides scientific honesty regarding Martian volatiles. Orbital radar from SHARAD and neutron spectroscopy confirm there is no accessible near-surface ice at eighteen degrees north. Hydrated signatures indicate ancient clay minerals, not extractable water. To solve this, our In-Situ Resource Utilization simulator models atmospheric solid oxide electrolysis via MOXIE, converting atmospheric carbon dioxide into breathable oxygen and ascent propellant."
+  },
+  {
+    "id": "scene07_environment_radiation",
+    "title": "Atmospheric Environment & Radiation",
+    "audio_path": "video/audio/scene07_environment_radiation.mp3",
+    "duration": 28.752,
+    "text": "Surviving on Mars requires understanding its harsh environment. The Environment module visualizes calibrated historical records from Perseverance's MEDA weather station, revealing diurnal temperature swings exceeding seventy degrees Celsius and atmospheric pressures around seven millibars. Surface radiation telemetry from Curiosity's RAD instrument models galactic cosmic ray background and solar particle events, projecting cumulative tissue dose across the expedition duration."
+  },
+  {
+    "id": "scene08_route_planner",
+    "title": "Terrain-Aware Route Planner",
+    "audio_path": "video/audio/scene08_route_planner.mp3",
+    "duration": 29.88,
+    "text": "Traverse planning requires terrain-aware navigation. Our route planner employs an A-star pathfinding algorithm over twenty-meter DTM grids, applying exponential cost penalties to steep slopes and rugged boulder fields. Planners sequence waypoints, compare Safest, Fastest, and Direct traverse strategies, and examine elevation profiles with climb and descent statistics. Routes can be verified against DTM coverage and exported to GPX and GeoJSON."
+  },
+  {
+    "id": "scene09_survival_simulator",
+    "title": "Astronaut Survival Simulator",
+    "audio_path": "video/audio/scene09_survival_simulator.mp3",
+    "duration": 31.584,
+    "text": "The Astronaut Survival Simulator implements hourly numerical integration based on NASA Baseline Values for Exploration. It tracks five essential consumables: oxygen, water, battery energy, carbon dioxide scrubber capacity, and food rations. Planners test contingency scenarios, including dust storm mobility delays and scrubber degradation. The depletion timeline monitors safety margins against a twenty-percent emergency reserve, alerting operators before critical breaches occur."
+  },
+  {
+    "id": "scene10_assessment_and_vault",
+    "title": "Mission Assessment, Monte Carlo & Vault",
+    "audio_path": "video/audio/scene10_assessment_and_vault.mp3",
+    "duration": 41.904,
+    "text": "Finally, the Mission Assessment engine synthesizes all data into an objective feasibility score and verdict. A seven-category scorecard evaluates terrain safety, consumable margins, return logistics, and scientific return. Our five-hundred-run Monte Carlo simulation models stochastic environmental risks, verifying NASA Category One human-rating compliance. Planners can save their complete flight plan to the persistent SQLite Vault, and generate a publication-quality NASA mission feasibility PDF report with a single click. This is MARSENSE: planetary science, survival intelligence, and mission success for human exploration of Mars."
+  }
+]

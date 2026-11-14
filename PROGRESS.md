@@ -155,6 +155,24 @@
   - Started backend daemon on port 8000 and frontend dev server on port 5173.
   - Verified live API endpoints and raster loading pipelines.
 
+### 2026-11-14 — Phase 13: Official Full-Length Demo Video with Neural Voiceover
+- **Delivered Deliverable**: Master Full HD demo video (`video/MARSENSE_DEMO_VIDEO.mp4` and `frontend/public/MARSENSE_DEMO_VIDEO.mp4`).
+- **Duration**: 5 minutes 47 seconds (347.8s) Full HD 1080p @ 30fps with AAC 192kbps stereo.
+- **Narration**: Microsoft Edge Neural TTS (`en-US-ChristopherNeural` authoritative mission briefing voice).
+- **Lower-Third Graphics**: FFmpeg-composited dynamic title cards, feature pills (`MARSENSE · FEATURE 0X OF 10: <Title>`) with font anti-aliasing.
+- **Coverage**: Demonstrates every single feature across the entire platform:
+  1. Mission Control Overview & Mars Chronometry (Allison-McEwen algorithm, live Sol/LTST/Ls, dust alert, rover telemetry)
+  2. Mars Explorer & GIS Layers (20m CTX DTM, CRISM phyllosilicates/carbonates/olivine, THEMIS, HRSC, click inspection Horn slope/Riley TRI)
+  3. Terrain Intelligence & Elevation Transects (bounding box analysis, traversability index, elevation transect tool, Delta Scarp profile, 15° hazard threshold, CSV export)
+  4. Landing Site & Base Selection (multi-criteria comparison matrix, factor weights, candidate selection)
+  5. Planetary Science Discovery & Three Forks MSR Sample Depot (curated targets, 4★+ bulk selection, 10 sealed sample tubes)
+  6. Water Resources & ISRU Chemical Plant (SHARAD/neutron ice reality check, MOXIE O2 & Sabatier propellant synthesizer)
+  7. Atmospheric Environment & Radiation Dosimetry (Perseverance MEDA history, Curiosity RAD dosimetry, cumulative GCR tissue dose)
+  8. Terrain-Aware Route Planner (A* pathfinding, 3-strategy comparison, cross-section elevation, hazard segments, GPX/GeoJSON export)
+  9. Astronaut Survival Simulator (NASA BVAD 2022 5-consumable hourly integration, contingency scenarios, 20% emergency reserve margin)
+  10. Mission Feasibility Assessment, Monte Carlo & SQLite Mission Vault (7-category scorecard, 500-run Monte Carlo risk distribution, SQLite vault flight plans, 1-click PDF mission report)
+- **Direct Playback Link**: `http://localhost:5173/MARSENSE_DEMO_VIDEO.mp4`
+
 ---
 
 ## Module Status Summary
@@ -178,3 +196,4 @@
 | **Scientific Methodology & Documentation** | COMPLETE AND VERIFIED | Formula proofs, dataset provenance, citations, API doc, testing doc, limitations |
 | **Containerization & Deployment** | COMPLETE AND VERIFIED | Multi-stage Dockerfiles, Nginx reverse proxy, Docker Compose with PostGIS |
 | **Automated Testing Suite** | COMPLETE AND VERIFIED | 54 automated tests passing (21 Pytest, 17 Vitest, 16 Playwright) |
+| **Official Demo Video with Voiceover** | COMPLETE AND VERIFIED | Full-length 1080p MP4 (5m 47s) with neural narration covering all 10 features, served at `/MARSENSE_DEMO_VIDEO.mp4` |

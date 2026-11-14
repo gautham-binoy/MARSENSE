@@ -49,3 +49,7 @@ Thumbs.db
 # Caches & Databases
 data/cache/
 *.sqlite3-journal
+
+# Demo video intermediate raw clips & temp processed files
+video/clips/
+video/processed/
