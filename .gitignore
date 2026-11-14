@@ -53,3 +53,5 @@ data/cache/
 # Demo video intermediate raw clips & temp processed files
 video/clips/
 video/processed/
+video/hd_clips/
+video/processed_hd/

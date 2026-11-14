@@ -19,16 +19,10 @@ export function configureCesiumForMars() {
 export const JEZERO = { lon: 77.45, lat: 18.44 }
 
 export function trekProvider(layer: MapLayer): Cesium.ImageryProvider {
-  // Trek template: .../{z}/{y}/{x}.ext where y = TileRow, x = TileCol in a 2x1 geographic scheme.
-  const url = layer.url!.replace('{z}', '{TileMatrix}').replace('{y}', '{TileRow}').replace('{x}', '{TileCol}')
   const scheme = new Cesium.GeographicTilingScheme({ ellipsoid: MARS_ELLIPSOID, numberOfLevelZeroTilesX: 2, numberOfLevelZeroTilesY: 1 })
   const rect = layer.rectangle ? Cesium.Rectangle.fromDegrees(layer.rectangle.west, layer.rectangle.south, layer.rectangle.east, layer.rectangle.north) : undefined
-  return new Cesium.WebMapTileServiceImageryProvider({
-    url,
-    layer: layer.id,
-    style: 'default',
-    format: 'image/png',
-    tileMatrixSetID: 'default028mm',
+  return new Cesium.UrlTemplateImageryProvider({
+    url: layer.url!,
     tilingScheme: scheme,
     rectangle: rect,
     minimumLevel: layer.min_zoom,

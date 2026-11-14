@@ -65,8 +65,8 @@ export const MarsGlobe = forwardRef<GlobeHandle, Props>(function MarsGlobe(
 
   useImperativeHandle(ref, () => ({
     flyTo: (lon, lat, height = 25000) => viewerRef.current && flyTo(viewerRef.current, lon, lat, height),
-    reset: () => viewerRef.current && viewerRef.current.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(77, 10, 1.1e7, MARS_ELLIPSOID), duration: 1.5 }),
-    flyToJezero: () => viewerRef.current && flyTo(viewerRef.current, 77.42, 18.40, 70000, 2.2),
+    reset: () => viewerRef.current && viewerRef.current.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(77, 18, 7.5e6, MARS_ELLIPSOID), duration: 1.5 }),
+    flyToJezero: () => viewerRef.current && flyTo(viewerRef.current, 77.45, 18.44, 45000, 2.2, -60),
     viewer: () => viewerRef.current,
   }))
 
@@ -77,7 +77,7 @@ export const MarsGlobe = forwardRef<GlobeHandle, Props>(function MarsGlobe(
     const viewer = new Cesium.Viewer(containerRef.current, {
       baseLayer: false,
       baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false, animation: false, timeline: false,
-      fullscreenButton: false, infoBox: false, selectionIndicator: false, shouldAnimate: false, skyAtmosphere: false, requestRenderMode: true, maximumRenderTimeChange: Infinity,
+      fullscreenButton: false, infoBox: false, selectionIndicator: false, shouldAnimate: true, skyAtmosphere: false, requestRenderMode: false,
       contextOptions: { webgl: { alpha: false, preserveDrawingBuffer: true } },
       terrainProvider: new Cesium.EllipsoidTerrainProvider({ ellipsoid: MARS_ELLIPSOID }),
     })
@@ -96,8 +96,9 @@ export const MarsGlobe = forwardRef<GlobeHandle, Props>(function MarsGlobe(
     viewer.dataSources.add(ds)
     overlays.current = ds
     viewerRef.current = viewer
+    ;(window as any).__viewer = viewer
 
-    if (initialView === 'globe') viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(77, 10, 1.1e7, MARS_ELLIPSOID) })
+    if (initialView === 'globe') viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(77, 18, 7.5e6, MARS_ELLIPSOID) })
     else viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(77.42, 18.2, 70000, MARS_ELLIPSOID), orientation: { heading: 0, pitch: Cesium.Math.toRadians(-55), roll: 0 } })
 
     const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas)
