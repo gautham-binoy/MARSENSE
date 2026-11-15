@@ -65,7 +65,7 @@ export const MarsGlobe = forwardRef<GlobeHandle, Props>(function MarsGlobe(
 
   useImperativeHandle(ref, () => ({
     flyTo: (lon, lat, height = 25000) => viewerRef.current && flyTo(viewerRef.current, lon, lat, height),
-    reset: () => viewerRef.current && viewerRef.current.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(77, 18, 7.5e6, MARS_ELLIPSOID), duration: 1.5 }),
+    reset: () => viewerRef.current && viewerRef.current.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(77, 18, 5.2e6, MARS_ELLIPSOID), duration: 1.5 }),
     flyToJezero: () => viewerRef.current && flyTo(viewerRef.current, 77.45, 18.44, 45000, 2.2, -60),
     viewer: () => viewerRef.current,
   }))
@@ -98,7 +98,7 @@ export const MarsGlobe = forwardRef<GlobeHandle, Props>(function MarsGlobe(
     viewerRef.current = viewer
     ;(window as any).__viewer = viewer
 
-    if (initialView === 'globe') viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(77, 18, 7.5e6, MARS_ELLIPSOID) })
+    if (initialView === 'globe') viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(77, 18, 5.2e6, MARS_ELLIPSOID) })
     else viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(77.42, 18.2, 70000, MARS_ELLIPSOID), orientation: { heading: 0, pitch: Cesium.Math.toRadians(-55), roll: 0 } })
 
     const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas)
